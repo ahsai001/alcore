@@ -1,0 +1,4 @@
+include ':alcore'
+include ':zlcore'
+include ':app'
+rootProject.name = "Al Core Sample"
