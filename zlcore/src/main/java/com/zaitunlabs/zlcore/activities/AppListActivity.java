@@ -3,6 +3,10 @@ package com.zaitunlabs.zlcore.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.ahsailabs.alcore.core.BaseActivity;
+import com.ahsailabs.alcore.fragments.InfoFragment;
+import com.ahsailabs.alcore.utils.CommonUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -11,10 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.zaitunlabs.zlcore.R;
-import com.zaitunlabs.zlcore.core.BaseActivity;
 import com.zaitunlabs.zlcore.fragments.AppListActivityFragment;
-import com.zaitunlabs.zlcore.fragments.InfoFragment;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
 
 public class AppListActivity extends BaseActivity {
     public static final String PARAM_IS_MEID = InfoFragment.PARAM_IS_MEID;

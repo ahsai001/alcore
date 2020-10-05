@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.ahsailabs.alcore.utils.CommonUtil;
 import com.zaitunlabs.zlcore.R;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
 
 /**
  * Created by ahmad s on 3/14/2016.

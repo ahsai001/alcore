@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.zaitunlabs.zlcore.R;
-import com.zaitunlabs.zlcore.tables.BookmarkModel;
+import com.ahsailabs.alcore.tables.BookmarkModel;
 
 import java.util.List;
 

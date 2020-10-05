@@ -14,13 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ahsailabs.alcore.core.BaseFragment;
+import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alcore.views.CustomRecylerView;
 import com.zaitunlabs.zlcore.R;
 import com.zaitunlabs.zlcore.adapters.BookmarkListAdapter;
-import com.zaitunlabs.zlcore.tables.BookmarkModel;
-import com.zaitunlabs.zlcore.core.BaseFragment;
+import com.ahsailabs.alcore.tables.BookmarkModel;
 import com.zaitunlabs.zlcore.events.ShowBookmarkInfoEvent;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
-import com.zaitunlabs.zlcore.views.CustomRecylerView;
 
 import org.greenrobot.eventbus.EventBus;
 

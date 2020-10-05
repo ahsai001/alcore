@@ -19,6 +19,12 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 
+import com.ahsailabs.alcore.core.CanvasActivity;
+import com.ahsailabs.alcore.utils.FileUtil;
+import com.ahsailabs.alcore.views.ASTextView;
+import com.ahsailabs.alcore.views.CanvasLayout;
+import com.ahsailabs.alcore.views.CanvasSection;
+import com.ahsailabs.alcore.views.GoToTopView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.idunnololz.widgets.AnimatedExpandableListView;
@@ -28,13 +34,6 @@ import com.zaitunlabs.zlcore.modules.about.SimpleExpandableDataModel;
 import com.zaitunlabs.zlcore.modules.about.SimpleExpandableListAdapter;
 import com.zaitunlabs.zlcore.modules.about.SimpleItemDescriptionModel;
 import com.zaitunlabs.zlcore.modules.shaum_sholat.CountDownSholatReminderUtils;
-import com.zaitunlabs.zlcore.core.CanvasActivity;
-import com.zaitunlabs.zlcore.utils.FileUtil;
-import com.zaitunlabs.zlcore.views.ASTextView;
-import com.zaitunlabs.zlcore.views.CanvasLayout;
-import com.zaitunlabs.zlcore.views.CanvasSection;
-import com.zaitunlabs.zlcore.views.GoToTopView;
-import com.zaitunlabs.zlcore.views.GoToTopView.IGoToTopAction;
 
 
 import java.io.IOException;
@@ -143,7 +142,7 @@ public class VersionChangeHistoryCanvas extends CanvasActivity {
 			}
 		});
 
-		GoToTopView scrollToTop = new GoToTopView(this, new IGoToTopAction() {
+		GoToTopView scrollToTop = new GoToTopView(this, new GoToTopView.IGoToTopAction() {
 			@Override
 			public void goToTopAction() {
 				listView.smoothScrollToPosition(0);

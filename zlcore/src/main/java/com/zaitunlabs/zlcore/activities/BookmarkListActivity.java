@@ -3,16 +3,17 @@ package com.zaitunlabs.zlcore.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.ahsailabs.alcore.core.BaseActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
+import com.zaitunlabs.zlcore.R;
+import com.zaitunlabs.zlcore.fragments.BookmarkListActivityFragment;
+
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.zaitunlabs.zlcore.R;
-import com.zaitunlabs.zlcore.core.BaseActivity;
-import com.zaitunlabs.zlcore.fragments.BookmarkListActivityFragment;
 
 public class BookmarkListActivity extends BaseActivity {
 

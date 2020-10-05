@@ -91,8 +91,6 @@
 
     <string name="zlcore_title_activity_version_change_history">Application Version History</string>
 
-    <string name="zlcore_menu_item_bookmark">Add bookmark</string>
-    <string name="zlcore_menu_item_unbookmark">Remove bookmark</string>
     <string name="zlcore_title_activity_bookmark_list">Bookmark List</string>
     <string name="zlcore_action_open_remove_bookmark">Open and remove bookmark</string>
     <string name="zlcore_action_open_bookmark">Open bookmark</string>

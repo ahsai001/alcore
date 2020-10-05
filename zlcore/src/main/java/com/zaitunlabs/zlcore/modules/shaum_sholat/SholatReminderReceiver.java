@@ -4,9 +4,9 @@ import  android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alcore.utils.Prefs;
 import com.zaitunlabs.zlcore.R;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
-import com.zaitunlabs.zlcore.utils.Prefs;
 
 import java.util.Calendar;
 

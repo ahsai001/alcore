@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zlcore_general_wording_close">Close</string>
+
+    <string name="zlcore_notification_error_ssl_date_invalid">The date of the certificate is invalid</string>
+    <string name="zlcore_notification_error_ssl_expired">The certificate has expired</string>
+    <string name="zlcore_notification_error_ssl_idmismatch">Hostname mismatch</string>
+    <string name="zlcore_notification_error_ssl_invalid">A generic error occurred</string>
+    <string name="zlcore_notification_error_ssl_not_yet_valid">The certificate is not yet valid</string>
+    <string name="zlcore_notification_error_ssl_untrusted">The certificate authority is not trusted</string>
+    <string name="zlcore_notification_error_ssl_cert_invalid">The certificate is invalid</string>
+    <string name="zlcore_notification_error_ssl_title">SSL Error Warning</string>
+    <string name="zlcore_notification_error_ssl_continue_text">Continue</string>
+    <string name="zlcore_notification_error_ssl_cancel_text">Cancel</string>
+
+    <string name="zlcore_general_coordinator_layout_tagname">general_coordinator_layout_tagname</string>
+    <string name="zlcore_snackbar_action_name_dismiss">Dismiss</string>
+    <string name="zlcore_warning_connection_error">Connection Problem</string>
+    <string name="zlcore_default_snackbar_dismiss">dismiss</string>
+    <string name="zlcore_warning_something_wrong">Something wrong</string>
+
+    <string name="zlcore_common_utils_send_email">Send email...</string>
+    <string name="zlcore_common_utils_default_share_title">How do you want to share?</string>
+    <string name="zlcore_general_wording_information_title">Information</string>
+    <string name="zlcore_general_wording_dismiss">Dismiss</string>
+    <string name="zlcore_general_wording_delete">Delete</string>
+    <string name="zlcore_general_wording_cancel">Cancel</string>
+
+    <string name="zlcore_general_wording_ok">OK</string>
+    <string name="zlcore_permission_utils_permission_title">Permission</string>
+    <string name="zlcore_permission_utils_permission_message">we need all these permissions to run properly</string>
+    <string name="zlcore_permission_utils_permission_message_enable_from_setting">Sorry, because you already check never ask again and we need all these permissions to run properly, please enable permission in this application setting</string>
+    <string name="zlcore_permission_utils_permission_go_to_setting_title">Setting</string>
+
+    <string name="zlcore_warning_please_wait">Please wait...</string>
+    <string name="zlcore_core_string_yes">YES</string>
+    <string name="zlcore_core_string_no">NO</string>
+    <string name="zlcore_core_string_submit">submit</string>
+
+    <!-- ACRA strings -->
+    <string name="zlcore_crash_mail_to">app-report@zaitunlabs.com</string>
+    <string name="zlcore_crash_toast_text">Ooooops ! I crashed, a report need to be sent to my developer to help fix the issue !</string>
+    <string name="zlcore_crash_notif_ticker_text">Unexpected error, please send a report</string>
+    <string name="zlcore_crash_notif_title">CrashTest has crashed</string>
+    <string name="zlcore_crash_notif_text">Please click here to help fix the issue.</string>
+    <string name="zlcore_crash_dialog_title">CrashTest has crashed</string>
+    <string name="zlcore_crash_dialog_text">An unexpected error occurred forcing the application to stop. Please help us fix this by sending us error data, all you have to do is click OK.</string>
+    <string name="zlcore_crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="zlcore_crash_dialog_ok_toast">Thank you !</string>
+
+
+    <!-- dialog splash screen app -->
+    <string name="zlcore_title_dialog_init">update</string>
+    <string name="zlcore_message_dialog_init">New update is already exist</string>
+    <string name="zlcore_download_option_dialog_init">download</string>
+    <string name="zlcore_close_option_dialog_init">close</string>
+    <string name="zlcore_use_existing_option_dialog_init">use existing</string>
+
+    <string name="zlcore_canvasactivity_volume_background_sound">Backsound volume :</string>
+
+    <string name="zlcore_infofragment_mark_all_as_read_success">Mark all as read success</string>
+    <string name="zlcore_infofragment_delete_all_messages_success">Delete all messages success</string>
+
+
+    <string name="zlcore_warning_please_give_permission">Please give permission to run this application</string>
+    <string name="zlcore_warning_press_once_again_to_close_app">Tap once more to close this application</string>
+    <string name="zlcore_base_recyclerview_adapter_delete_confirmation">Delete Confirmation</string>
+    <string name="zlcore_base_recyclerview_adapter_delete_confirmation_message">Are you sure want to delete it?</string>
+
+
+    <string name="zlcore_default_webview_share_message">I got this interesting article, i think you will be interested too</string>
+    <string name="zlcore_default_webview_share_title">I got interesting article</string>
+
+    <string name="zlcore_login_utils_logout_confirmation_title">Logout Confirmation</string>
+    <string name="zlcore_login_utils_logout_confirmation_message">Are you sure want to logout?</string>
+    <string name="zlcore_login_utils_logout_button_title">Logout</string>
+    <string name="zlcore_login_utils_relogin_confirmation_title">Re-login Confirmation</string>
+    <string name="zlcore_login_utils_relogin_confirmation_message">You need to re-login to continue?</string>
+
+
+    <string name="zlcore_something_wrong_for_webview">Something wrong</string>
+    <string name="zlcore_info_not_available">Info not available</string>
+
+    <string name="zlcore_generalwebview_download_confirmation_title">Download Confirmation</string>
+    <string name="zlcore_generalwebview_download_confirmation_message">What do you want?</string>
+    <string name="zlcore_generalwebview_download_dialog_download_option">download</string>
+    <string name="zlcore_generalwebview_download_dialog_open_other_app_option">open in other apps</string>
+    <string name="zlcore_generalwebview_download_wording_description">Downloading file</string>
+    <string name="zlcore_generalwebview_download_wording_toast_message">Downloading file</string>
+
+
+    <string name="zlcore_menu_item_bookmark">Add bookmark</string>
+    <string name="zlcore_menu_item_unbookmark">Remove bookmark</string>
+
+    <string name="zlcore_module_message_list_title">Information</string>
+
+
+    <string name="zlcore_onboarding_skip">skip</string>
+    <string name="zlcore_onboarding_next">next</string>
+    <string name="zlcore_onboarding_get_started">get started</string>
+    <string name="zlcore_onboarding_close">close</string>
+
+    <string name="zlcore_gototopview_up_wording">Up</string>
+
+
+    <string name="zlcore_title_activity_info_popup">Infomation</string>
+    <string name="zlcore_title_activity_reminder_popup">Reminder</string>
+
+
+    <string name="zlcore_error_invalid_userid">This user id is invalid</string>
+    <string name="zlcore_error_invalid_email">This email address is invalid</string>
+    <string name="zlcore_error_invalid_password">This password is invalid</string>
+    <string name="zlcore_error_incorrect_password">This password is incorrect</string>
+    <string name="zlcore_error_field_required">This field is required</string>
+
+    <string name="zlcore_form_validations_utils_please_fill_this">Please fill this</string>
+    <string name="zlcore_form_validations_utils_email_is_invalid">Email is invalid</string>
+    <string name="zlcore_form_validations_utils_please_insert_with_valid_format">Please insert with valid format</string>
+    <string name="zlcore_form_validations_utils_need_set_regex_pattern">You need to set Regexp Pattern first</string>
+    <string name="zlcore_form_validations_utils_please_fill_alpha_numeric_only">Please fill with alpha numeric only</string>
+    <string name="zlcore_form_validations_utils_please_fill_numeric_only">Please fill with numeric only</string>
+    <string name="zlcore_form_validations_utils_value_is_different">The value is different with %1$s</string>
+    <string name="zlcore_form_validations_utils_data_must_be_count_digits">Data must be %1$d %2$s</string>
+    <string name="zlcore_form_validations_utils_phone_format_is_invalid">Phone format is invalid</string>
+    <string name="zlcore_form_validations_utils_you_must_check_this">You must check this</string>
+    <string name="zlcore_form_validations_utils_url_format_is_invalid">Url format is invalid</string>
+    <string name="zlcore_form_validations_utils_date_format_is_invalid">Date format is invalid</string>
+    <string name="zlcore_warning_failed_get_location_with_gps">(Couldn\'t get the location. Make sure location is enabled on the device)</string>
+
+</resources>

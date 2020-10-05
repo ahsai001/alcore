@@ -21,6 +21,13 @@ import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.EditText;
 
+import com.ahsailabs.alcore.core.BaseFragment;
+import com.ahsailabs.alcore.fragments.InfoFragment;
+import com.ahsailabs.alcore.listeners.RecyclerViewLoadMoreListener;
+import com.ahsailabs.alcore.listeners.RecyclerViewTouchListener;
+import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alcore.utils.HttpClientUtil;
+import com.ahsailabs.alcore.views.CustomRecylerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.Priority;
@@ -29,16 +36,10 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.gson.GsonBuilder;
 import com.zaitunlabs.zlcore.R;
 import com.zaitunlabs.zlcore.adapters.StoreAdapter;
-import com.zaitunlabs.zlcore.api.APIConstant;
+import com.ahsailabs.alcore.api.APIConstant;
 import com.zaitunlabs.zlcore.tables.StoreDataModel;
 import com.zaitunlabs.zlcore.tables.StoreModel;
 import com.zaitunlabs.zlcore.tables.StorePagingModel;
-import com.zaitunlabs.zlcore.core.BaseFragment;
-import com.zaitunlabs.zlcore.listeners.RecyclerViewLoadMoreListener;
-import com.zaitunlabs.zlcore.listeners.RecyclerViewTouchListener;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
-import com.zaitunlabs.zlcore.utils.HttpClientUtil;
-import com.zaitunlabs.zlcore.views.CustomRecylerView;
 
 import org.json.JSONObject;
 

@@ -11,11 +11,11 @@ import androidx.core.app.JobIntentService;
 
 import android.text.TextUtils;
 
-import com.zaitunlabs.zlcore.constants.ZLCoreConstanta;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
-import com.zaitunlabs.zlcore.utils.IntegerIDUtil;
-import com.zaitunlabs.zlcore.utils.LocationUtil;
-import com.zaitunlabs.zlcore.utils.Prefs;
+import com.ahsailabs.alcore.constants.AlCoreConstanta;
+import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alcore.utils.IntegerIDUtil;
+import com.ahsailabs.alcore.utils.LocationUtil;
+import com.ahsailabs.alcore.utils.Prefs;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -199,7 +199,7 @@ public class ShaumSholatReminderService extends JobIntentService {
         AlarmManager alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
 
         Intent reminderIntent = new Intent(this, receiver);
-        reminderIntent.setAction(ZLCoreConstanta.ACTION_MANAGE_SHAUM_SHOLAT_REMINDER+ IntegerIDUtil.getID(this));
+        reminderIntent.setAction(AlCoreConstanta.ACTION_MANAGE_SHAUM_SHOLAT_REMINDER+ IntegerIDUtil.getID(this));
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 212, reminderIntent, 0);
 
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time, alarmIntent);

@@ -3,7 +3,7 @@ package com.zaitunlabs.zlcore.tables;
 import com.ahsailabs.sqlitewrapper.SQLiteWrapper;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.zaitunlabs.zlcore.api.APIConstant;
+import com.ahsailabs.alcore.api.APIConstant;
 import com.zaitunlabs.zlcore.core.BaseApplication;
 
 import java.util.Calendar;

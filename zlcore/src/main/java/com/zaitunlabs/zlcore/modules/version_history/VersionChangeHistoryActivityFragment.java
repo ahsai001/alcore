@@ -15,9 +15,9 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.ExpandableListView;
 
+import com.ahsailabs.alcore.core.BaseFragment;
 import com.idunnololz.widgets.AnimatedExpandableListView;
 import com.zaitunlabs.zlcore.R;
-import com.zaitunlabs.zlcore.core.BaseFragment;
 import com.zaitunlabs.zlcore.modules.about.SimpleExpandableListAdapter;
 
 /**

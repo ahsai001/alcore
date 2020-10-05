@@ -19,19 +19,19 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView.ScaleType;
 
+import com.ahsailabs.alcore.core.CanvasActivity;
+import com.ahsailabs.alcore.core.WebViewActivity;
+import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alcore.utils.ViewUtil;
+import com.ahsailabs.alcore.views.ASImageView;
+import com.ahsailabs.alcore.views.ASMovableMenu;
+import com.ahsailabs.alcore.views.ASTextView;
+import com.ahsailabs.alcore.views.CanvasLayout;
+import com.ahsailabs.alcore.views.CanvasSection;
 import com.squareup.picasso.Picasso;
 import com.zaitunlabs.zlcore.R;
 import com.zaitunlabs.zlcore.modules.version_history.VersionChangeHistoryActivity;
-import com.zaitunlabs.zlcore.core.CanvasActivity;
-import com.zaitunlabs.zlcore.core.WebViewActivity;
 import com.zaitunlabs.zlcore.modules.version_history.VersionChangeHistoryCanvas;
-import com.zaitunlabs.zlcore.utils.CommonUtil;
-import com.zaitunlabs.zlcore.utils.ViewUtil;
-import com.zaitunlabs.zlcore.views.ASImageView;
-import com.zaitunlabs.zlcore.views.ASMovableMenu;
-import com.zaitunlabs.zlcore.views.ASTextView;
-import com.zaitunlabs.zlcore.views.CanvasLayout;
-import com.zaitunlabs.zlcore.views.CanvasSection;
 
 import static android.os.Build.VERSION.SDK_INT;
 

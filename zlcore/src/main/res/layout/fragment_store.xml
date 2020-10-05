@@ -13,12 +13,12 @@
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.zaitunlabs.zlcore.views.CustomRecylerView
+        <com.ahsailabs.alcore.views.CustomRecylerView
             android:id="@+id/store_recylerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical">
-        </com.zaitunlabs.zlcore.views.CustomRecylerView>
+        </com.ahsailabs.alcore.views.CustomRecylerView>
 
         <LinearLayout
             android:id="@+id/store_empty_view"
