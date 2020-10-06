@@ -1,4 +1,4 @@
-package com.ahsailabs.alcore.utils;
+package com.ahsailabs.alutils;
 
 import androidx.annotation.ColorRes;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;

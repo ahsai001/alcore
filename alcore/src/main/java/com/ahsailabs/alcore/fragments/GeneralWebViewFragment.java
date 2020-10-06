@@ -58,7 +58,7 @@ import com.ahsailabs.alutils.ViewUtil;
 import com.ahsailabs.alutils.customs.DataList;
 import com.ahsailabs.alcore.events.GeneralWebviewEvent;
 import com.ahsailabs.alcore.tables.BookmarkModel;
-import com.ahsailabs.alcore.utils.SwipeRefreshLayoutUtil;
+import com.ahsailabs.alutils.SwipeRefreshLayoutUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
