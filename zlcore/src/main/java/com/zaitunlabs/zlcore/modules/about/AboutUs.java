@@ -21,13 +21,13 @@ import android.widget.ImageView.ScaleType;
 
 import com.ahsailabs.alcore.core.CanvasActivity;
 import com.ahsailabs.alcore.core.WebViewActivity;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.ViewUtil;
+import com.ahsailabs.alutils.CommonUtil;
 import com.ahsailabs.alcore.views.ASImageView;
 import com.ahsailabs.alcore.views.ASMovableMenu;
 import com.ahsailabs.alcore.views.ASTextView;
 import com.ahsailabs.alcore.views.CanvasLayout;
 import com.ahsailabs.alcore.views.CanvasSection;
+import com.ahsailabs.alutils.ViewUtil;
 import com.squareup.picasso.Picasso;
 import com.zaitunlabs.zlcore.R;
 import com.zaitunlabs.zlcore.modules.version_history.VersionChangeHistoryActivity;

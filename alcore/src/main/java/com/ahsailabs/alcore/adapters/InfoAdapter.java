@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.tables.InformationModel;
-import com.ahsailabs.alcore.utils.DateStringUtil;
+import com.ahsailabs.alutils.DateStringUtil;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 

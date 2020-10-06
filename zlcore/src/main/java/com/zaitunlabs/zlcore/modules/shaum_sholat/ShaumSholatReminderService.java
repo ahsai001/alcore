@@ -12,10 +12,10 @@ import androidx.core.app.JobIntentService;
 import android.text.TextUtils;
 
 import com.ahsailabs.alcore.constants.AlCoreConstanta;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.IntegerIDUtil;
-import com.ahsailabs.alcore.utils.LocationUtil;
-import com.ahsailabs.alcore.utils.Prefs;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.IntegerIDUtil;
+import com.ahsailabs.alutils.LocationUtil;
+import com.ahsailabs.alutils.Prefs;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

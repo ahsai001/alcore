@@ -23,8 +23,8 @@ import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.constants.AlCoreConstanta;
 import com.ahsailabs.alcore.fragments.GeneralWebViewFragment;
 import com.ahsailabs.alcore.fragments.InfoFragment;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.HttpClientUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.HttpClientUtil;
 
 import java.util.ArrayList;
 

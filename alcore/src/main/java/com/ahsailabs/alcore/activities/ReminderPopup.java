@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.BaseActivity;
-import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alutils.CommonUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;

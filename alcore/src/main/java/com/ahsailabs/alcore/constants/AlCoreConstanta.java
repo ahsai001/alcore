@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.ahsailabs.alcore.R;
-import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alutils.CommonUtil;
 
 /**
  * Created by ahsai on 3/15/2018.

@@ -6,7 +6,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.Transformation;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.ahsailabs.alcore.utils.DebugUtil;
+import com.ahsailabs.alutils.DebugUtil;
 
 
 public class ResizeMoveAnimation extends Animation {

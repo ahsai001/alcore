@@ -12,7 +12,7 @@ import android.transition.Transition;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.utils.ApplicationWacther;
-import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alutils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;

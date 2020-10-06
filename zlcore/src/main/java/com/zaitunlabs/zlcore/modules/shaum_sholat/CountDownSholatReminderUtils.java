@@ -4,8 +4,9 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
-import com.ahsailabs.alcore.utils.DateStringUtil;
-import com.ahsailabs.alcore.utils.Prefs;
+
+import com.ahsailabs.alutils.DateStringUtil;
+import com.ahsailabs.alutils.Prefs;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;

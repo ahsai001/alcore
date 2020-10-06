@@ -16,8 +16,8 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.DebugUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.DebugUtil;
 
 /**
  * sekarang masih gak support untuk di add ke CanvasSection dengan scroll aktif, (akan di riset)

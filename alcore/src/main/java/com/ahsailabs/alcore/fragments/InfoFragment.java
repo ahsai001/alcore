@@ -28,10 +28,10 @@ import com.ahsailabs.alcore.core.WebViewActivity;
 import com.ahsailabs.alcore.events.InfoPositionEvent;
 import com.ahsailabs.alcore.events.UpdateInfoListEvent;
 import com.ahsailabs.alcore.tables.InformationModel;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.EventsUtil;
 import com.ahsailabs.alcore.utils.InfoUtil;
 import com.ahsailabs.alcore.views.CustomRecylerView;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.EventsUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

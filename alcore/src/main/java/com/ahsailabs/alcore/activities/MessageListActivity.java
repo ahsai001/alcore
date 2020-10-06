@@ -7,8 +7,8 @@ import android.os.Bundle;
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.BaseActivity;
 import com.ahsailabs.alcore.fragments.InfoFragment;
-import com.ahsailabs.alcore.utils.CommonUtil;
 import com.ahsailabs.alcore.utils.NotificationUtil;
+import com.ahsailabs.alutils.CommonUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

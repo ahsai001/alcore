@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.BaseFragment;
-import com.ahsailabs.alcore.utils.CommonUtil;
 import com.ahsailabs.alcore.utils.FormBuilderUtil;
-import com.ahsailabs.alcore.utils.FormValidationUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.FormValidationUtil;
 
 import java.util.Map;
 

@@ -1,3 +1,4 @@
+include ':alutils'
 include ':alcore'
 include ':zlcore'
 include ':app'

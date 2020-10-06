@@ -5,8 +5,8 @@ import android.content.Context;
 import com.ahsailabs.alcore.constants.AlCoreConstanta;
 import com.ahsailabs.alcore.core.AlCoreApplication;
 import com.ahsailabs.alcore.events.ReInitializeDatabaseEvent;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.DebugUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.DebugUtil;
 import com.ahsailabs.sqlitewrapper.SQLiteWrapper;
 import com.zaitunlabs.zlcore.tables.AppListDataModel;
 import com.zaitunlabs.zlcore.tables.AppListModel;
@@ -30,8 +30,6 @@ public class BaseApplication extends AlCoreApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
-
 
 		dbInitialize();
 	}

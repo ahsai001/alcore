@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ahsailabs.alcore.core.BaseFragment;
-import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alutils.CommonUtil;
 import com.ahsailabs.alcore.views.CustomRecylerView;
 import com.zaitunlabs.zlcore.R;
 import com.zaitunlabs.zlcore.adapters.BookmarkListAdapter;

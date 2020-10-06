@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.ahsailabs.alcore.R;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.DebugUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.DebugUtil;
 
 
 /**

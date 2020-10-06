@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.CanvasActivity;
-import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alutils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,8 +4,9 @@ import  android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.Prefs;
+import com.ahsailabs.alcore.utils.NotificationUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.Prefs;
 import com.zaitunlabs.zlcore.R;
 
 import java.util.Calendar;
@@ -61,7 +62,7 @@ public class SholatReminderReceiver extends BroadcastReceiver {
 
                long time = Prefs.with(context).getLong(prefCode,-1);
                if(time+(reminderIntervalTime*60*1000) >= Calendar.getInstance().getTimeInMillis()) {
-                   CommonUtil.showNotification(context, context.getString(R.string.app_name), contentOfNotif, null, null, null, null, R.string.app_name, R.mipmap.icon, false, false);
+                   NotificationUtil.showNotification(context, context.getString(R.string.app_name), contentOfNotif, null, null, null, null, R.string.app_name, R.mipmap.icon, false, false);
                }
            }
        });

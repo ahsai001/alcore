@@ -51,14 +51,14 @@ import android.widget.TextView;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.BaseFragment;
-import com.ahsailabs.alcore.customs.DataList;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.DebugUtil;
+import com.ahsailabs.alutils.HttpClientUtil;
+import com.ahsailabs.alutils.ViewUtil;
+import com.ahsailabs.alutils.customs.DataList;
 import com.ahsailabs.alcore.events.GeneralWebviewEvent;
 import com.ahsailabs.alcore.tables.BookmarkModel;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.DebugUtil;
-import com.ahsailabs.alcore.utils.HttpClientUtil;
 import com.ahsailabs.alcore.utils.SwipeRefreshLayoutUtil;
-import com.ahsailabs.alcore.utils.ViewUtil;
 
 import org.greenrobot.eventbus.EventBus;
 

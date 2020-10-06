@@ -20,7 +20,8 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 
 import com.ahsailabs.alcore.core.CanvasActivity;
-import com.ahsailabs.alcore.utils.FileUtil;
+import com.ahsailabs.alutils.FileUtil;
+
 import com.ahsailabs.alcore.views.ASTextView;
 import com.ahsailabs.alcore.views.CanvasLayout;
 import com.ahsailabs.alcore.views.CanvasSection;

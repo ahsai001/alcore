@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 
-import com.ahsailabs.alcore.utils.DebugUtil;
+import com.ahsailabs.alutils.DebugUtil;
 
 
 public class ASGestureDetector {

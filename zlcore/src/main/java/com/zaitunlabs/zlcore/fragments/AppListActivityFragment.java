@@ -21,8 +21,9 @@ import com.ahsailabs.alcore.core.BaseFragment;
 import com.ahsailabs.alcore.fragments.InfoFragment;
 import com.ahsailabs.alcore.listeners.RecyclerViewLoadMoreListener;
 import com.ahsailabs.alcore.listeners.RecyclerViewTouchListener;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.HttpClientUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.HttpClientUtil;
+
 import com.ahsailabs.alcore.views.CustomRecylerView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;

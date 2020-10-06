@@ -12,8 +12,8 @@ import android.widget.Button;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.BaseActivity;
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.Prefs;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.Prefs;
 
 import java.util.List;
 

@@ -12,8 +12,8 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.DebugUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.DebugUtil;
 
 
 /**

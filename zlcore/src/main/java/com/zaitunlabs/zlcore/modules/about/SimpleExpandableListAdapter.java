@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ahsailabs.alcore.utils.CommonUtil;
-import com.ahsailabs.alcore.utils.DebugUtil;
-import com.ahsailabs.alcore.utils.LinkUtil;
+import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.DebugUtil;
+
+import com.ahsailabs.alutils.LinkUtil;
+
 import com.idunnololz.widgets.AnimatedExpandableListView;
 
 public class SimpleExpandableListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {

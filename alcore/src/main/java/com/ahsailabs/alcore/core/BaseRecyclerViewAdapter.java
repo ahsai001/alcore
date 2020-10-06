@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.listeners.SwipeDragCallback;
-import com.ahsailabs.alcore.utils.CommonUtil;
+import com.ahsailabs.alutils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

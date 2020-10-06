@@ -9,7 +9,8 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.ahsailabs.alcore.utils.DebugUtil;
+
+import com.ahsailabs.alutils.DebugUtil;
 
 import java.util.ArrayList;
 
