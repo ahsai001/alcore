@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="zlcore_general_wording_close">Close</string>
+    <string name="zlcore_general_wording_close">Al Utils</string>
 
     <string name="zlcore_notification_error_ssl_date_invalid">The date of the certificate is invalid</string>
     <string name="zlcore_notification_error_ssl_expired">The certificate has expired</string>

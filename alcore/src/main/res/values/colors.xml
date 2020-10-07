@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="textColorButtonNormal">#FFFFFF</color>
+
+
     <color name="info_status_read">@android:color/darker_gray</color>
     <color name="info_status_unread">#4CAF50</color>
 </resources>

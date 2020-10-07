@@ -1,0 +1,185 @@
+<resources>
+    <string name="app_name">Al Core</string>
+
+    <string name="zlcore_notification_error_ssl_date_invalid">Tanggal sertifikat tidak valid</string>
+    <string name="zlcore_notification_error_ssl_expired">Sertifikat sudah kadaluarsa</string>
+    <string name="zlcore_notification_error_ssl_idmismatch">Nama host tidak cocok</string>
+    <string name="zlcore_notification_error_ssl_invalid">Masalah umum terjadi</string>
+    <string name="zlcore_notification_error_ssl_not_yet_valid">Sertifikat belum valid</string>
+    <string name="zlcore_notification_error_ssl_untrusted">Otoritas sertifikat tidak terpercaya</string>
+    <string name="zlcore_notification_error_ssl_cert_invalid">Sertifikat tidak valid</string>
+    <string name="zlcore_notification_error_ssl_title">Peringatan masalah SSL</string>
+    <string name="zlcore_notification_error_ssl_continue_text">Lanjutkan</string>
+    <string name="zlcore_notification_error_ssl_cancel_text">Batalkan</string>
+
+    <string name="zlcore_general_coordinator_layout_tagname">general_coordinator_layout_tagname</string>
+    <string name="zlcore_snackbar_action_name_dismiss">Tutup</string>
+    <string name="zlcore_warning_connection_error">Masalah koneksi</string>
+    <string name="zlcore_default_snackbar_dismiss">tutup</string>
+    <string name="zlcore_warning_something_wrong">Ada masalah</string>
+
+
+    <!-- Strings related to login -->
+    <string name="zlcore_title_activity_login">Masuk</string>
+    <string name="zlcore_prompt_email">Email</string>
+    <string name="zlcore_prompt_password">Kata kunci</string>
+    <string name="zlcore_action_sign_in">Masuk</string>
+    <string name="zlcore_action_sign_in_short">Masuk</string>
+
+    <string name="zlcore_error_invalid_userid">ID pengguna tidak valid</string>
+    <string name="zlcore_error_invalid_email">Alamat email tidak valid</string>
+    <string name="zlcore_error_invalid_password">Kata kunci tidak valid</string>
+    <string name="zlcore_error_incorrect_password">Kata kunci tidak benar</string>
+    <string name="zlcore_error_field_required">Wajib diisi</string>
+    <string name="zlcore_permission_rationale">Contacts permissions are needed for providing email completions.</string>
+
+
+    <string name="zlcore_action_refresh">Segarkan</string>
+
+    <string name="zlcore_info_tab_title">Info</string>
+    <string name="zlcore_action_logout">Keluar</string>
+    <string name="zlcore_action_broadcast">Send broadcast</string>
+    <string name="zlcore_title_activity_info_popup">Informasi</string>
+    <string name="zlcore_title_activity_reminder_popup">Pengingat</string>
+    <string name="zlcore_action_settings">Pengaturan</string>
+    <string name="zlcore_section_format">Hello World from section: %1$d</string>
+    <string name="zlcore_info_no_data">Tidak ada data saat ini</string>
+    <string name="zlcore_info_no_info">Tidak ada info saat ini</string>
+    <string name="zlcore_info_no_product">Tidak ada produk untuk saat ini</string>
+    <string name="zlcore_title_activity_rating">Rating</string>
+
+    <string name="zlcore_content_loading">Sedang memuat...</string>
+    <string name="zlcore_login_signing">Harap tunggu, sedang masuk</string>
+    <string name="zlcore_title_activity_itinerary_detail">Itinerary Info</string>
+    <string name="zlcore_warning_invalid_method">Silakan hubungi pembuat aplikasi untuk masalah ini</string>
+    <string name="zlcore_warning_please_wait">Harap tunggu...</string>
+    <string name="zlcore_core_string_yes">Ya</string>
+    <string name="zlcore_core_string_no">Tidak</string>
+    <string name="zlcore_core_string_submit">submit</string>
+    <string name="zlcore_something_wrong_for_webview">Maaf ada masalah</string>
+    <string name="zlcore_info_not_available">Info tidak tersedia</string>
+
+
+    <!-- ACRA strings -->
+    <string name="zlcore_crash_mail_to">app-report@zaitunlabs.com</string>
+    <string name="zlcore_crash_toast_text">Ooooops ! I crashed, a report need to be sent to my developer to help fix the issue !</string>
+    <string name="zlcore_crash_notif_ticker_text">Unexpected error, please send a report</string>
+    <string name="zlcore_crash_notif_title">CrashTest has crashed</string>
+    <string name="zlcore_crash_notif_text">Please click here to help fix the issue.</string>
+    <string name="zlcore_crash_dialog_title">CrashTest has crashed</string>
+    <string name="zlcore_crash_dialog_text">An unexpected error occurred forcing the application to stop. Please help us fix this by sending us error data, all you have to do is click OK.</string>
+    <string name="zlcore_crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="zlcore_crash_dialog_ok_toast">Thank you !</string>
+
+
+    <!-- dialog splash screen app -->
+    <string name="zlcore_title_dialog_init">perbarui</string>
+    <string name="zlcore_message_dialog_init">Aplikasi terbaru sudah ada</string>
+    <string name="zlcore_download_option_dialog_init">unduh</string>
+    <string name="zlcore_close_option_dialog_init">tutup</string>
+    <string name="zlcore_use_existing_option_dialog_init">lanjut masuk</string>
+
+
+    <string name="zlcore_module_message_list_title">Informasi</string>
+    <string name="zlcore_title_activity_app_list">Aplikasi pilihan</string>
+    <string name="zlcore_title_activity_store">Toko</string>
+
+    <string name="zlcore_onboarding_skip">lewati</string>
+    <string name="zlcore_onboarding_next">selanjutnya</string>
+    <string name="zlcore_onboarding_get_started">mulai</string>
+    <string name="zlcore_onboarding_close">tutup</string>
+
+    <string name="zlcore_title_activity_version_change_history">Riwayat versi aplikasi</string>
+
+    <string name="zlcore_menu_item_bookmark">Tambah bookmark</string>
+    <string name="zlcore_menu_item_unbookmark">Hapus bookmark</string>
+    <string name="zlcore_title_activity_bookmark_list">Bookmark List</string>
+    <string name="zlcore_action_open_remove_bookmark">Buka dan hapus bookmark</string>
+    <string name="zlcore_action_open_bookmark">Buka bookmark</string>
+    <string name="zlcore_action_remove_bookmark">Hapus bookmark</string>
+    <string name="zlcore_menu_item_share">Bagikan</string>
+    <string name="zlcore_default_webview_share_message">Saya menemukan artikel menarik ini, saya kira kamu akan tertarik juga</string>
+    <string name="zlcore_default_webview_share_title">Saya menemukan artikel menarik</string>
+
+    <string name="zlcore_title_activity_base_form">Base Form Activity</string>
+
+    <string name="zlcore_menu_item_reload">Muat ulang</string>
+    <string name="zlcore_menu_item_open_page_in_browser">Buka halaman di peramban</string>
+    <string name="zlcore_menu_item_close_page">Tutup halaman</string>
+    <string name="zlcore_menu_item_mark_as_read">Tandai sudah dibaca</string>
+    <string name="zlcore_menu_item_delete_message">Hapus informasi</string>
+    <string name="zlcore_menu_item_mark_as_unread">Tandai belum dibaca</string>
+    <string name="zlcore_menu_item_mark_all_as_read">Tandai semua sudah dibaca</string>
+    <string name="zlcore_menu_item_delete_all_messages">Hapus semua informasi</string>
+    <string name="zlcore_action_search">Temukan</string>
+    <string name="zlcore_aboutus_about_app">Tentang Aplikasi</string>
+    <string name="zlcore_warning_sorry_there_is_problem">Maaf, telah terjadi kesalahan</string>
+    <string name="zlcore_aboutus_developer_name">Pengembang : %1$s</string>
+    <string name="zlcore_aboutus_developer_email">Email : %1$s</string>
+    <string name="zlcore_aboutus_kirim_email">Kirim Email</string>
+    <string name="zlcore_aboutus_version">Versi : %1$s</string>
+    <string name="zlcore_aboutus_title_link_about_app">&#160;&#160;Tentang aplikasi&#160;&#160;</string>
+    <string name="zlcore_aboutus_app_history">&#160;&#160;Riwayat versi aplikasi&#160;&#160;</string>
+    <string name="zlcore_aboutus_share_title">share menggunakan :</string>
+    <string name="zlcore_aboutus_menu_share_title">Bagikan</string>
+    <string name="zlcore_aboutus_menu_feedback_title">Umpan Balik</string>
+    <string name="zlcore_aboutus_menu_rate_title">Rate</string>
+
+
+    <string name="zlcore_warning_please_give_permission">Harap berikan izin agar aplikasi ini dapat berjalan</string>
+    <string name="zlcore_warning_press_once_again_to_close_app">Tekan sekali lagi untuk menutup aplikasi</string>
+    <string name="zlcore_base_recyclerview_adapter_delete_confirmation">Konfirmasi Hapus</string>
+    <string name="zlcore_base_recyclerview_adapter_delete_confirmation_message">Apakah anda yakin untuk menghapus nya?</string>
+    <string name="zlcore_general_wording_delete">Hapus</string>
+    <string name="zlcore_general_wording_cancel">Batalkan</string>
+    <string name="zlcore_canvasactivity_volume_background_sound">Volume Suara Latar :</string>
+    <string name="zlcore_infofragment_mark_all_as_read_success">Berhasil menandai semua sebagai sukses</string>
+    <string name="zlcore_infofragment_delete_all_messages_success">Berhasil menghapus semua informasi</string>
+    <string name="zlcore_shaum_reminder_notification">Besok adalah hari %1$s, jangan lupa persiapannya bagi yang akan melakukan shaum/puasa</string>
+    <string name="zlcore_sholat_reminder_subuh">Perhatian, sebentar lagi menjelang waktu sholat subuh</string>
+    <string name="zlcore_sholat_reminder_syuruk">Perhatian, sebentar lagi menjelang waktu syuruk</string>
+    <string name="zlcore_sholat_reminder_dzuhur">Perhatian, sebentar lagi menjelang waktu sholat dzuhur</string>
+    <string name="zlcore_sholat_reminder_jumat">Perhatian, beberapa puluh menit lagi menjelang waktu sholat jum\'at</string>
+    <string name="zlcore_sholat_reminder_ashr">Perhatian, sebentar lagi menjelang waktu sholat ashar</string>
+    <string name="zlcore_sholat_reminder_maghrib">Perhatian, sebentar lagi menjelang waktu sholat maghrib</string>
+    <string name="zlcore_sholat_reminder_isya">Perhatian, sebentar lagi menjelang waktu sholat isya</string>
+    <string name="zlcore_general_wording_close">Tutup</string>
+    <string name="zlcore_common_utils_send_email">Kirim email...</string>
+    <string name="zlcore_common_utils_default_share_title">Bagaimana cara kamu berbagi?</string>
+    <string name="zlcore_general_wording_information_title">Informasi</string>
+    <string name="zlcore_general_wording_dismiss">Tutup</string>
+    <string name="zlcore_form_validations_utils_please_fill_this">Harap diisi</string>
+    <string name="zlcore_form_validations_utils_email_is_invalid">Email tidak valid</string>
+    <string name="zlcore_form_validations_utils_please_insert_with_valid_format">Harap input dengan format yang valid</string>
+    <string name="zlcore_form_validations_utils_need_set_regex_pattern">Anda perlu membuat patter terlebih dahulu</string>
+    <string name="zlcore_form_validations_utils_please_fill_alpha_numeric_only">Harap diisi dengan alfa numerik saja</string>
+    <string name="zlcore_form_validations_utils_please_fill_numeric_only">Harap diisi dengan numerik saja</string>
+    <string name="zlcore_form_validations_utils_value_is_different">Isinya berbeda dengan %1$s</string>
+    <string name="zlcore_form_validations_utils_data_must_be_count_digits">Data seharusnya %1$d %2$s</string>
+    <string name="zlcore_form_validations_utils_phone_format_is_invalid">Format nomor handphone tidak valid</string>
+    <string name="zlcore_form_validations_utils_you_must_check_this">Anda harus mencentang ini</string>
+    <string name="zlcore_form_validations_utils_url_format_is_invalid">Format url tidak valid</string>
+    <string name="zlcore_form_validations_utils_date_format_is_invalid">Format tanggal tidak valid</string>
+    <string name="zlcore_warning_failed_get_location_with_gps">(Gagal mendapatkan lokasi. Pastikan lokasi sudah aktif di gawai anda)</string>
+    <string name="zlcore_login_utils_logout_confirmation_title">Konfirmasi Keluar</string>
+    <string name="zlcore_login_utils_logout_confirmation_message">Apakah yakin ingin keluar?</string>
+    <string name="zlcore_login_utils_logout_button_title">Keluar</string>
+    <string name="zlcore_login_utils_relogin_confirmation_title">Konfirmasi Masuk Kembali</string>
+    <string name="zlcore_login_utils_relogin_confirmation_message">Anda perlu masuk kembali untuk melanjutkan?</string>
+    <string name="zlcore_general_wording_ok">Ya</string>
+    <string name="zlcore_permission_utils_permission_title">Perizinan</string>
+    <string name="zlcore_permission_utils_permission_message">Aplikasi perlu semua perizinan ini untuk berfungsi dengan baik</string>
+    <string name="zlcore_permission_utils_permission_message_enable_from_setting">Maaf, karena anda sudah mencentang \'jangan tanya lagi\' dan kami perlu semua perizinan untuk berfungsi dengan baik, harap berikan izin melalui pengaturan aplikasi ini</string>
+    <string name="zlcore_permission_utils_permission_go_to_setting_title">Pengaturan</string>
+    <string name="zlcore_gototopview_up_wording">Ke atas</string>
+
+
+    <string name="zlcore_aboutus_tentang_aplikasi">Tentang Aplikasi</string>
+
+    <string name="zlcore_generalwebview_download_confirmation_title">Konfirmasi unduh</string>
+    <string name="zlcore_generalwebview_download_confirmation_message">Apa yang kamu inginkan?</string>
+    <string name="zlcore_generalwebview_download_dialog_download_option">unduh</string>
+    <string name="zlcore_generalwebview_download_dialog_open_other_app_option">buka di aplikasi lain</string>
+    <string name="zlcore_generalwebview_download_wording_description">Unduh berkas</string>
+    <string name="zlcore_generalwebview_download_wording_toast_message">Unduh berkas</string>
+</resources>

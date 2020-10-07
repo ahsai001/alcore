@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="zlcore_general_wording_close">Close</string>
+    <string name="app_name">Al Core</string>
 
     <string name="zlcore_notification_error_ssl_date_invalid">The date of the certificate is invalid</string>
     <string name="zlcore_notification_error_ssl_expired">The certificate has expired</string>
@@ -19,23 +18,47 @@
     <string name="zlcore_default_snackbar_dismiss">dismiss</string>
     <string name="zlcore_warning_something_wrong">Something wrong</string>
 
-    <string name="zlcore_common_utils_send_email">Send email...</string>
-    <string name="zlcore_common_utils_default_share_title">How do you want to share?</string>
-    <string name="zlcore_general_wording_information_title">Information</string>
-    <string name="zlcore_general_wording_dismiss">Dismiss</string>
-    <string name="zlcore_general_wording_delete">Delete</string>
-    <string name="zlcore_general_wording_cancel">Cancel</string>
 
-    <string name="zlcore_general_wording_ok">OK</string>
-    <string name="zlcore_permission_utils_permission_title">Permission</string>
-    <string name="zlcore_permission_utils_permission_message">we need all these permissions to run properly</string>
-    <string name="zlcore_permission_utils_permission_message_enable_from_setting">Sorry, because you already check never ask again and we need all these permissions to run properly, please enable permission in this application setting</string>
-    <string name="zlcore_permission_utils_permission_go_to_setting_title">Setting</string>
+    <!-- Strings related to login -->
+    <string name="zlcore_title_activity_login">Sign in</string>
+    <string name="zlcore_prompt_email">Email</string>
+    <string name="zlcore_prompt_password">Password</string>
+    <string name="zlcore_action_sign_in">Login</string>
+    <string name="zlcore_action_sign_in_short">Login</string>
 
+    <string name="zlcore_error_invalid_userid">This user id is invalid</string>
+    <string name="zlcore_error_invalid_email">This email address is invalid</string>
+    <string name="zlcore_error_invalid_password">This password is invalid</string>
+    <string name="zlcore_error_incorrect_password">This password is incorrect</string>
+    <string name="zlcore_error_field_required">This field is required</string>
+    <string name="zlcore_permission_rationale">Contacts permissions are needed for providing email completions.</string>
+
+
+    <string name="zlcore_action_refresh">Refresh</string>
+
+    <string name="zlcore_info_tab_title">Info</string>
+    <string name="zlcore_action_logout">Logout</string>
+    <string name="zlcore_action_broadcast">Send broadcast</string>
+    <string name="zlcore_title_activity_info_popup">Infomation</string>
+    <string name="zlcore_title_activity_reminder_popup">Reminder</string>
+    <string name="zlcore_action_settings">Settings</string>
+    <string name="zlcore_section_format">Hello World from section: %1$d</string>
+    <string name="zlcore_info_no_data">There are no data currently</string>
+    <string name="zlcore_info_no_info">There are no info currently</string>
+    <string name="zlcore_info_no_product">There are no products currently</string>
+    <string name="zlcore_title_activity_rating">Rating</string>
+
+    <string name="zlcore_content_loading">Loading...</string>
+    <string name="zlcore_login_signing">Please wait, logging in</string>
+    <string name="zlcore_title_activity_itinerary_detail">Itinerary Info</string>
+    <string name="zlcore_warning_invalid_method">Please contact app vendor for this error</string>
     <string name="zlcore_warning_please_wait">Please wait...</string>
     <string name="zlcore_core_string_yes">YES</string>
     <string name="zlcore_core_string_no">NO</string>
     <string name="zlcore_core_string_submit">submit</string>
+    <string name="zlcore_something_wrong_for_webview">Something wrong</string>
+    <string name="zlcore_info_not_available">Info not available</string>
+
 
     <!-- ACRA strings -->
     <string name="zlcore_crash_mail_to">app-report@zaitunlabs.com</string>
@@ -56,63 +79,74 @@
     <string name="zlcore_close_option_dialog_init">close</string>
     <string name="zlcore_use_existing_option_dialog_init">use existing</string>
 
-    <string name="zlcore_canvasactivity_volume_background_sound">Backsound volume :</string>
-
-    <string name="zlcore_infofragment_mark_all_as_read_success">Mark all as read success</string>
-    <string name="zlcore_infofragment_delete_all_messages_success">Delete all messages success</string>
-
-
-    <string name="zlcore_warning_please_give_permission">Please give permission to run this application</string>
-    <string name="zlcore_warning_press_once_again_to_close_app">Tap once more to close this application</string>
-    <string name="zlcore_base_recyclerview_adapter_delete_confirmation">Delete Confirmation</string>
-    <string name="zlcore_base_recyclerview_adapter_delete_confirmation_message">Are you sure want to delete it?</string>
-
-
-    <string name="zlcore_default_webview_share_message">I got this interesting article, i think you will be interested too</string>
-    <string name="zlcore_default_webview_share_title">I got interesting article</string>
-
-    <string name="zlcore_login_utils_logout_confirmation_title">Logout Confirmation</string>
-    <string name="zlcore_login_utils_logout_confirmation_message">Are you sure want to logout?</string>
-    <string name="zlcore_login_utils_logout_button_title">Logout</string>
-    <string name="zlcore_login_utils_relogin_confirmation_title">Re-login Confirmation</string>
-    <string name="zlcore_login_utils_relogin_confirmation_message">You need to re-login to continue?</string>
-
-
-    <string name="zlcore_something_wrong_for_webview">Something wrong</string>
-    <string name="zlcore_info_not_available">Info not available</string>
-
-    <string name="zlcore_generalwebview_download_confirmation_title">Download Confirmation</string>
-    <string name="zlcore_generalwebview_download_confirmation_message">What do you want?</string>
-    <string name="zlcore_generalwebview_download_dialog_download_option">download</string>
-    <string name="zlcore_generalwebview_download_dialog_open_other_app_option">open in other apps</string>
-    <string name="zlcore_generalwebview_download_wording_description">Downloading file</string>
-    <string name="zlcore_generalwebview_download_wording_toast_message">Downloading file</string>
-
-
-    <string name="zlcore_menu_item_bookmark">Add bookmark</string>
-    <string name="zlcore_menu_item_unbookmark">Remove bookmark</string>
 
     <string name="zlcore_module_message_list_title">Information</string>
-
+    <string name="zlcore_title_activity_app_list">Promoted Apps</string>
+    <string name="zlcore_title_activity_store">Store</string>
 
     <string name="zlcore_onboarding_skip">skip</string>
     <string name="zlcore_onboarding_next">next</string>
     <string name="zlcore_onboarding_get_started">get started</string>
     <string name="zlcore_onboarding_close">close</string>
 
-    <string name="zlcore_gototopview_up_wording">Up</string>
+    <string name="zlcore_title_activity_version_change_history">Application Version History</string>
+
+    <string name="zlcore_title_activity_bookmark_list">Bookmark List</string>
+    <string name="zlcore_action_open_remove_bookmark">Open and remove bookmark</string>
+    <string name="zlcore_action_open_bookmark">Open bookmark</string>
+    <string name="zlcore_action_remove_bookmark">Remove bookmark</string>
+    <string name="zlcore_menu_item_share">Share</string>
+    <string name="zlcore_default_webview_share_message">I got this interesting article, i think you will be interested too</string>
+    <string name="zlcore_default_webview_share_title">I got interesting article</string>
+
+    <string name="zlcore_title_activity_base_form">Base Form Activity</string>
+
+    <string name="zlcore_menu_item_reload">Reload</string>
+    <string name="zlcore_menu_item_open_page_in_browser">Open page in browser</string>
+    <string name="zlcore_menu_item_close_page">Close page</string>
+    <string name="zlcore_menu_item_mark_as_read">Mark as read</string>
+    <string name="zlcore_menu_item_delete_message">Delete message</string>
+    <string name="zlcore_menu_item_mark_as_unread">Mark as unread</string>
+    <string name="zlcore_menu_item_mark_all_as_read">Mark all as read</string>
+    <string name="zlcore_menu_item_delete_all_messages">Delete all messages</string>
+    <string name="zlcore_action_search">Search</string>
+    <string name="zlcore_aboutus_about_app">About Application</string>
+    <string name="zlcore_warning_sorry_there_is_problem">Sorry, there is problem</string>
+    <string name="zlcore_aboutus_developer_name">Developer : %1$s</string>
+    <string name="zlcore_aboutus_developer_email">Email : %1$s</string>
+    <string name="zlcore_aboutus_kirim_email">Send Email</string>
+    <string name="zlcore_aboutus_version">Version : %1$s</string>
+    <string name="zlcore_aboutus_title_link_about_app">&#160;&#160;About Application&#160;&#160;</string>
+    <string name="zlcore_aboutus_app_history">&#160;&#160;Application Version History&#160;&#160;</string>
+    <string name="zlcore_aboutus_share_title">Share using :</string>
+    <string name="zlcore_aboutus_menu_share_title">Share</string>
+    <string name="zlcore_aboutus_menu_feedback_title">Feedback</string>
+    <string name="zlcore_aboutus_menu_rate_title">Rate</string>
 
 
-    <string name="zlcore_title_activity_info_popup">Infomation</string>
-    <string name="zlcore_title_activity_reminder_popup">Reminder</string>
 
-
-    <string name="zlcore_error_invalid_userid">This user id is invalid</string>
-    <string name="zlcore_error_invalid_email">This email address is invalid</string>
-    <string name="zlcore_error_invalid_password">This password is invalid</string>
-    <string name="zlcore_error_incorrect_password">This password is incorrect</string>
-    <string name="zlcore_error_field_required">This field is required</string>
-
+    <string name="zlcore_warning_please_give_permission">Please give permission to run this application</string>
+    <string name="zlcore_warning_press_once_again_to_close_app">Tap once more to close this application</string>
+    <string name="zlcore_base_recyclerview_adapter_delete_confirmation">Delete Confirmation</string>
+    <string name="zlcore_base_recyclerview_adapter_delete_confirmation_message">Are you sure want to delete it?</string>
+    <string name="zlcore_general_wording_delete">Delete</string>
+    <string name="zlcore_general_wording_cancel">Cancel</string>
+    <string name="zlcore_canvasactivity_volume_background_sound">Backsound volume :</string>
+    <string name="zlcore_infofragment_mark_all_as_read_success">Mark all as read success</string>
+    <string name="zlcore_infofragment_delete_all_messages_success">Delete all messages success</string>
+    <string name="zlcore_shaum_reminder_notification">Tomorrow is %1$s, don\'t forget the preparation for fasting</string>
+    <string name="zlcore_sholat_reminder_subuh">Attention, a few more minutes before shubuh prayer time</string>
+    <string name="zlcore_sholat_reminder_syuruk">Attention, a few more minutes before syuruk time</string>
+    <string name="zlcore_sholat_reminder_dzuhur">Attention, a few more minutes before dzuhur prayer time</string>
+    <string name="zlcore_sholat_reminder_jumat">Attention, a few dozen minutes ahead of jum\'at prayer time</string>
+    <string name="zlcore_sholat_reminder_ashr">Attention, a few more minutes before ashar prayer time</string>
+    <string name="zlcore_sholat_reminder_maghrib">Attention, a few more minutes before maghrib prayer time</string>
+    <string name="zlcore_sholat_reminder_isya">Attention, a few more minutes before isya prayer time</string>
+    <string name="zlcore_general_wording_close">Close</string>
+    <string name="zlcore_common_utils_send_email">Send email...</string>
+    <string name="zlcore_common_utils_default_share_title">How do you want to share?</string>
+    <string name="zlcore_general_wording_information_title">Information</string>
+    <string name="zlcore_general_wording_dismiss">Dismiss</string>
     <string name="zlcore_form_validations_utils_please_fill_this">Please fill this</string>
     <string name="zlcore_form_validations_utils_email_is_invalid">Email is invalid</string>
     <string name="zlcore_form_validations_utils_please_insert_with_valid_format">Please insert with valid format</string>
@@ -126,5 +160,25 @@
     <string name="zlcore_form_validations_utils_url_format_is_invalid">Url format is invalid</string>
     <string name="zlcore_form_validations_utils_date_format_is_invalid">Date format is invalid</string>
     <string name="zlcore_warning_failed_get_location_with_gps">(Couldn\'t get the location. Make sure location is enabled on the device)</string>
+    <string name="zlcore_login_utils_logout_confirmation_title">Logout Confirmation</string>
+    <string name="zlcore_login_utils_logout_confirmation_message">Are you sure want to logout?</string>
+    <string name="zlcore_login_utils_logout_button_title">Logout</string>
+    <string name="zlcore_login_utils_relogin_confirmation_title">Re-login Confirmation</string>
+    <string name="zlcore_login_utils_relogin_confirmation_message">You need to re-login to continue?</string>
+    <string name="zlcore_general_wording_ok">OK</string>
+    <string name="zlcore_permission_utils_permission_title">Permission</string>
+    <string name="zlcore_permission_utils_permission_message">we need all these permissions to run properly</string>
+    <string name="zlcore_permission_utils_permission_message_enable_from_setting">Sorry, because you already check never ask again and we need all these permissions to run properly, please enable permission in this application setting</string>
+    <string name="zlcore_permission_utils_permission_go_to_setting_title">Setting</string>
+    <string name="zlcore_gototopview_up_wording">Up</string>
 
+
+
+    <string name="zlcore_aboutus_tentang_aplikasi">About Application</string>
+    <string name="zlcore_generalwebview_download_confirmation_title">Download Confirmation</string>
+    <string name="zlcore_generalwebview_download_confirmation_message">What do you want?</string>
+    <string name="zlcore_generalwebview_download_dialog_download_option">download</string>
+    <string name="zlcore_generalwebview_download_dialog_open_other_app_option">open in other apps</string>
+    <string name="zlcore_generalwebview_download_wording_description">Downloading file</string>
+    <string name="zlcore_generalwebview_download_wording_toast_message">Downloading file</string>
 </resources>
