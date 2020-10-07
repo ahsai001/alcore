@@ -13,8 +13,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     -->
 
-
-
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -24,43 +22,11 @@
 
     <application>
         <activity
-            android:name="com.ahsailabs.alcore.activities.InfoPopup"
-            android:excludeFromRecents="true"
-            android:label="@string/zlcore_title_activity_info_popup"
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:theme="@style/AppTheme.InfoPopup" />
-        <activity
-            android:name="com.ahsailabs.alcore.activities.ReminderPopup"
-            android:excludeFromRecents="true"
-            android:label="@string/zlcore_title_activity_reminder_popup"
-            android:launchMode="standard"
-            android:noHistory="true"
-            android:theme="@style/AppTheme.ReminderPopup" />
-        <activity
             android:name=".modules.version_history.VersionChangeHistoryCanvas"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".modules.about.AboutUs"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.ahsailabs.alcore.core.WebViewActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <service
-            android:name="com.ahsailabs.alcore.services.FCMIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-        <service
-            android:name="com.ahsailabs.alcore.services.FCMLoginIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <!-- for application backsound -->
-        <service android:name="com.ahsailabs.alcore.utils.audio.BackSoundService" />
-        <service android:name="com.ahsailabs.alcore.utils.audio.AudioService" />
-
-        <receiver android:name="com.ahsailabs.alcore.utils.audio.StopPlayerReceiver" />
 
         <!-- modules sholat dan shaum -->
         <service android:name=".modules.shaum_sholat.ShaumSholatReminderService"
@@ -81,14 +47,6 @@
         <receiver android:name=".modules.shaum_sholat.SholatReminderReceiver" />
         <receiver android:name=".modules.shaum_sholat.ShaumReminderReceiver" />
 
-        <service android:name="com.ahsailabs.alcore.services.DataIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false"/>
-
-        <activity
-            android:name="com.ahsailabs.alcore.activities.MessageListActivity"
-            android:label="@string/zlcore_module_message_list_title"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AppListActivity"
             android:label="@string/zlcore_title_activity_app_list"
