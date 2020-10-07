@@ -147,25 +147,4 @@ public class BaseApplication extends AlCoreApplication {
 		super.onTerminate();
 	}
 
-
-
-	private class CustomACRASender implements ReportSender {
-		@Override
-		public void send(Context context, CrashReportData report) throws ReportSenderException {
-			CommonUtil.sendEmail(BaseApplication.this, AlCoreConstanta.getCrashMailTo(context), BaseApplication.this.getPackageName()+" Crash Report", report.toString(), "An error has occurred! Send an error done?");
-		}
-	}
-
-	private class CustomACRASenderFactory implements ReportSenderFactory {
-
-		public CustomACRASenderFactory(){
-
-		}
-
-		@Override
-		public ReportSender create(Context context, ACRAConfiguration config) {
-			return new CustomACRASender();
-		}
-	}
-
 }

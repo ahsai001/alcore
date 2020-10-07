@@ -37,7 +37,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 
 public class AlCoreApplication extends Application {
-	public static final String DATABASE_NAME = "zlcore.db";
+	public static final String DATABASE_NAME = "alcore.db";
 	public static final String TLSV_MIN = "TLSv1.2";
 	@Override
 	protected void attachBaseContext(Context base) {
