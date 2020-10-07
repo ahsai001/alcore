@@ -1,36 +1,38 @@
-# alcore
+# alcore - com.github.ahsai001:alcore
 ahsailabs's android library core
 
-There are a lot of utility that you can use from this library :
+
+### alutils - com.github.ahsai001.alcore:alutils
+1. Form Validation
+1. Android Permission Handler
+1. View Binding Utility
+1. Table View Utility
+1. Date String Utility
+1. Show Dialog/SnackBar Utility
+1. Show Date/Time/Contact/File/Place Picker
+1. and many more in package folder 'com.ahsailabs.alutils' especially 'CommonUtils' static class
+
+### alcore - com.github.ahsai001.alcore:alcore
 1. Form Builder
-2. Form Validation
-3. Android Permission Handler
-4. Splash Page
-5. Login Page
-6. OnBoarding Page
-7. Version Change History Page
-8. Push Notification Handler With/Without Notification List Page
-9. Webview Page
-10. Percentage Page
-11. RecyclerView that support load more, swype, drag
-12. About Page
-13. Data Intent Service
-14. SMS Listener
-15. View Binding Utility
-16. Table View Utility
-17. Date String Utility
-18. Show Dialog/SnackBar Utility
-19. Show Date/Time/Contact/File/Place Picker
-20. SQLiteWrapper (multi database, support migration plan, simple use, without reflection, lightweight)
-21. Lookup table (powered by SQLiteWrapper)
-22. and many more in package folder 'com.zaitunlabs.zlcore.utils' especially 'CommonUtils' static class
+1. Splash Page
+1. Login Page
+1. OnBoarding Page
+1. Push Notification Handler With/Without Notification List Page
+1. Webview Page
+1. Percentage Page
+1. RecyclerView that support load more, swype, drag
+1. Data Intent Service
+1. SMS Listener
+
+### zlcore - com.github.ahsai001.alcore:zlcore
+1. Version Change History Page
+1. About Page 
+1. Store List Page
+1. Bookmark List Page
+1. App Recommendation Page
 
 
-
-
-
-
-How to use this library:
+### How to use this library:
 
 Step 1. Add the JitPack repository to your build file
 
@@ -46,7 +48,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	  implementation 'com.github.ahsai001:alcore:{latest_release_version}'
+	     implementation 'com.github.ahsai001:alcore:{latest_release_version}'
           
           or use individually
           implementation 'com.github.ahsai001.alcore:alutils:{latest_release_version}'
