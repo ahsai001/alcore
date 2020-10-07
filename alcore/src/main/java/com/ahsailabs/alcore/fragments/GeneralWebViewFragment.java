@@ -49,6 +49,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
+import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.core.BaseFragment;
 import com.ahsailabs.alutils.CommonUtil;
 import com.ahsailabs.alutils.DebugUtil;
@@ -58,7 +59,6 @@ import com.ahsailabs.alutils.customs.DataList;
 import com.ahsailabs.alcore.events.GeneralWebviewEvent;
 import com.ahsailabs.alcore.tables.BookmarkModel;
 import com.ahsailabs.alutils.SwipeRefreshLayoutUtil;
-import com.zaitunlabs.alcore.R;
 
 import org.greenrobot.eventbus.EventBus;
 
