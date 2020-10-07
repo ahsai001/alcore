@@ -48,7 +48,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	     implementation 'com.github.ahsai001:alcore:{latest_release_version}'
+	implementation 'com.github.ahsai001:alcore:{latest_release_version}'
           
           or use individually
           implementation 'com.github.ahsai001.alcore:alutils:{latest_release_version}'
