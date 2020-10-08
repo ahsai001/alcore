@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -153,15 +154,34 @@ public class WebViewActivity extends BaseActivity {
             webView.addJavascriptInterface(new WebViewFragment.WebAppInterface(this.getActivity()), getString(R.string.app_name).replace(" ","").toLowerCase());
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
-        protected boolean handleCustomLink(WebView view, WebResourceRequest request) {
+        protected boolean isPreserveHistoryInsteadOfUsingHeaderWhenFollowLink() {
+            return false;
+        }
+
+        @Override
+        protected boolean handleCustomInternalLink(WebView view, WebResourceRequest request) {
+            return false;
+        }
+
+        @Override
+        protected boolean handleCustomInternalLink(WebView view, String url) {
+            return false;
+        }
+
+        @Override
+        protected boolean handleCustomExternalLink(WebView view, WebResourceRequest request) {
             return handleCustomLink(view.getContext(), request.getUrl().toString());
         }
 
         @Override
-        protected boolean handleCustomLink(WebView view, String url) {
+        protected boolean handleCustomExternalLink(WebView view, String url) {
             return handleCustomLink(view.getContext(), url);
+        }
+
+        @Override
+        protected boolean onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+            return false;
         }
 
 

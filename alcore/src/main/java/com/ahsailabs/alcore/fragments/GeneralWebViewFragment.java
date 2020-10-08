@@ -12,13 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.KeyEvent;
@@ -48,17 +41,22 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ahsailabs.alcore.R;
-import com.ahsailabs.alcore.core.BaseFragment;
+import com.ahsailabs.alcore.events.GeneralWebviewEvent;
+import com.ahsailabs.alcore.tables.BookmarkModel;
 import com.ahsailabs.alutils.CommonUtil;
 import com.ahsailabs.alutils.DebugUtil;
 import com.ahsailabs.alutils.HttpClientUtil;
+import com.ahsailabs.alutils.SwipeRefreshLayoutUtil;
 import com.ahsailabs.alutils.ViewUtil;
 import com.ahsailabs.alutils.customs.DataList;
-import com.ahsailabs.alcore.events.GeneralWebviewEvent;
-import com.ahsailabs.alcore.tables.BookmarkModel;
-import com.ahsailabs.alutils.SwipeRefreshLayoutUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,12 +64,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 /**
  * Created by ahmad s on 3/17/2016.
  */
-public abstract class GeneralWebViewFragment extends BaseFragment {
+public abstract class GeneralWebViewFragment extends Fragment {
     public static String FRAGMENT_TAG = "general_webview_fragment_tag";
 
     private static final String ARG_POSITION = "position";
@@ -116,8 +115,8 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
     private boolean isSuccess = true;
     private boolean isInternal = true;
     private WebView webView;
-    protected abstract View getCustomProgressBar();
-    protected abstract View getCustomInfoView();
+    @Nullable protected abstract View getCustomProgressBar();
+    @Nullable protected abstract View getCustomInfoView();
     protected abstract int getCustomInfoTextView();
     private FrameLayout customProgressPanel;
     private FrameLayout customInfoPanel;
@@ -206,7 +205,7 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
         View customProgress = getCustomProgressBar();
         if(customProgress != null){
             customProgressPanel.addView(customProgress);
-            customProgressBar = ViewUtil.findViewByClassReference(customProgress,ContentLoadingProgressBar.class);
+            customProgressBar = ViewUtil.findViewByClassReference(customProgress, ContentLoadingProgressBar.class);
         }
 
         customInfoPanel = rootView.findViewById(R.id.general_webview_custom_info_panel);
@@ -574,7 +573,7 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
 
 
     public void runJavascript(String jsScript){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.evaluateJavascript(jsScript, null);
         } else {
             webView.loadUrl("javascript:"+jsScript);
@@ -634,19 +633,34 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
 
             DebugUtil.logI(GeneralWebViewFragment.FRAGMENT_TAG, url);
 
+
             if (!TextUtils.isEmpty(requestUrlHost) && !TextUtils.isEmpty(rootUrlHost) && requestUrlHost.endsWith(rootUrlHost)) {
                 // This is my web site, so do not override; let my WebView load the page
-                return false;
+                if(!handleCustomInternalLink(view, url)){
+                    if(isPreserveHistoryInsteadOfUsingHeaderWhenFollowLink()){
+                        return false;
+                    } else {
+                        openNewLinkOrContent(url);
+                    }
+                }
+                return true;
             }
 
             if (whiteListDomains != null && whiteListDomains.contains(requestUrlHost)){
                 // This is in whitelist domains, so do not override; let my WebView load the page
-                return false;
+                if(!handleCustomInternalLink(view, url)){
+                    if(isPreserveHistoryInsteadOfUsingHeaderWhenFollowLink()){
+                        return false;
+                    } else {
+                        openNewLinkOrContent(url);
+                    }
+                }
+                return true;
             }
 
             isInternal = false;
             // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
-            if(!handleCustomLink(view, url)){
+            if(!handleCustomExternalLink(view, url)){
                 CommonUtil.openBrowser(view.getContext(), url);
             }
             return true;
@@ -666,17 +680,32 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
 
             if (!TextUtils.isEmpty(requestUrlHost) && !TextUtils.isEmpty(rootUrlHost) && requestUrlHost.endsWith(rootUrlHost)) {
                 // This is my web site, so do not override; let my WebView load the page
-                return false;
+                if(!handleCustomInternalLink(view, request)){
+                    if(isPreserveHistoryInsteadOfUsingHeaderWhenFollowLink()){
+                        return false;
+                    } else {
+                        openNewLinkOrContent(request.getUrl().toString());
+                    }
+                }
+                return true;
             }
 
             if (!TextUtils.isEmpty(requestUrlHost) && whiteListDomains != null && whiteListDomains.contains(requestUrlHost)){
                 // This is in whitelist domains, so do not override; let my WebView load the page
-                return false;
+
+                if(!handleCustomInternalLink(view, request)){
+                    if(isPreserveHistoryInsteadOfUsingHeaderWhenFollowLink()){
+                        return false;
+                    } else {
+                        openNewLinkOrContent(request.getUrl().toString());
+                    }
+                }
+                return true;
             }
 
             isInternal = false;
             // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
-            if(!handleCustomLink(view, request)){
+            if(!handleCustomExternalLink(view, request)){
                 CommonUtil.openBrowser(view.getContext(), request.getUrl().toString());
             }
             return true;
@@ -784,8 +813,15 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
         }
     }
 
-    protected abstract boolean handleCustomLink(WebView view, WebResourceRequest request);
-    protected abstract boolean handleCustomLink(WebView view, String url);
+    protected abstract boolean isPreserveHistoryInsteadOfUsingHeaderWhenFollowLink();
+
+    protected abstract boolean handleCustomInternalLink(WebView view, WebResourceRequest request);
+    protected abstract boolean handleCustomInternalLink(WebView view, String url);
+
+    protected abstract boolean handleCustomExternalLink(WebView view, WebResourceRequest request);
+    protected abstract boolean handleCustomExternalLink(WebView view, String url);
+
+    protected abstract boolean onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback);
 
     private final int FILE_REQUEST_CODE = 1044;
 
@@ -814,7 +850,9 @@ public abstract class GeneralWebViewFragment extends BaseFragment {
 
         @Override
         public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
-            callback.invoke(origin,true, true);
+            if(!GeneralWebViewFragment.this.onGeolocationPermissionsShowPrompt(origin, callback)) {
+                callback.invoke(origin, true, true);
+            }
         }
 
         @Override
