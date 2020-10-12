@@ -72,7 +72,6 @@ public class SPrefs implements SharedPreferences {
 	private static SharedPreferences sFile;
 	private static byte[] sKey;
 	private static String keyAlias = null;
-	private static boolean forceSymetric = false;
 	private static boolean sLoggingEnabled = false;
 	private static final String TAG = SPrefs.class.getName();
 	/**
@@ -87,21 +86,6 @@ public class SPrefs implements SharedPreferences {
 			SPrefs.sFile = PreferenceManager
 					.getDefaultSharedPreferences(context);
 		}
-		// Initialize encryption/decryption key for AES
-		try {
-			final String key = SPrefs.generateAesKeyName(context);
-			String value = SPrefs.sFile.getString(key, null);
-			if (value == null) {
-				value = SPrefs.generateAesKeyValue();
-				SPrefs.sFile.edit().putString(key, value).commit();
-			}
-			SPrefs.sKey = SPrefs.decode(value);
-		} catch (Exception e) {
-			if (sLoggingEnabled) {
-				Log.e(TAG, "Error init:" + e.getMessage());
-			}
-			throw new IllegalStateException(e);
-		}
 
 		// initialize for RSA
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -112,6 +96,31 @@ public class SPrefs implements SharedPreferences {
 				//Probably will never happen.
 				throw new RuntimeException(e);
 			}
+		}
+
+		// Initialize encryption/decryption key for AES
+		try {
+			String key = SPrefs.generateAesKeyName(context);
+			if(keyAlias != null) {
+				key = KeyStoreHelper.encrypt(keyAlias, key);
+			}
+			String value = SPrefs.sFile.getString(key, null);
+			if (value == null) {
+				value = SPrefs.generateAesKeyValue();
+				if(keyAlias != null) {
+					value = KeyStoreHelper.encrypt(keyAlias, value);
+				}
+				SPrefs.sFile.edit().putString(key, value).commit();
+			}
+			if(keyAlias != null) {
+				value = KeyStoreHelper.decrypt(keyAlias, value);
+			}
+			SPrefs.sKey = SPrefs.decode(value);
+		} catch (Exception e) {
+			if (sLoggingEnabled) {
+				Log.e(TAG, "Error init:" + e.getMessage());
+			}
+			throw new IllegalStateException(e);
 		}
 	}
 	private static String encode(byte[] input) {
@@ -231,45 +240,37 @@ public class SPrefs implements SharedPreferences {
 			return plainText;
 		}
 
-		if (!forceSymetric && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-			return KeyStoreHelper.encrypt(keyAlias, plainText);
-		} else {
-			forceSymetric = false;
-			try {
-				final Cipher cipher = Cipher.getInstance(AES_KEY_ALG, PROVIDER);
-				cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(
-						SPrefs.sKey, AES_KEY_ALG));
-				return SPrefs.encode(cipher.doFinal(plainText
-						.getBytes("UTF-8")));
-			} catch (Exception e) {
-				if (sLoggingEnabled) {
-					Log.w(TAG, "encrypt", e);
-				}
-				return null;
+		try {
+			final Cipher cipher = Cipher.getInstance(AES_KEY_ALG, PROVIDER);
+			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(
+					SPrefs.sKey, AES_KEY_ALG));
+			return SPrefs.encode(cipher.doFinal(plainText
+					.getBytes("UTF-8")));
+		} catch (Exception e) {
+			if (sLoggingEnabled) {
+				Log.w(TAG, "encrypt", e);
 			}
+			return null;
 		}
 	}
 	private static String decrypt(String ciphertext) {
 		if (ciphertext == null || ciphertext.length() == 0) {
 			return ciphertext;
 		}
-		if (!forceSymetric && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)) {
-			return KeyStoreHelper.decrypt(keyAlias, ciphertext);
-		} else {
-			forceSymetric = false;
-			try {
-				final Cipher cipher = Cipher.getInstance(AES_KEY_ALG, PROVIDER);
-				cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(
-						SPrefs.sKey, AES_KEY_ALG));
-				return new String(cipher.doFinal(SPrefs
-						.decode(ciphertext)), "UTF-8");
-			} catch (Exception e) {
-				if (sLoggingEnabled) {
-					Log.w(TAG, "decrypt", e);
-				}
-				return null;
+
+		try {
+			final Cipher cipher = Cipher.getInstance(AES_KEY_ALG, PROVIDER);
+			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(
+					SPrefs.sKey, AES_KEY_ALG));
+			return new String(cipher.doFinal(SPrefs
+					.decode(ciphertext)), "UTF-8");
+		} catch (Exception e) {
+			if (sLoggingEnabled) {
+				Log.w(TAG, "decrypt", e);
 			}
+			return null;
 		}
+
 	}
 	@Override
 	public Map<String, String> getAll() {
@@ -384,10 +385,6 @@ public class SPrefs implements SharedPreferences {
 	@Override
 	public Editor edit() {
 		return new Editor();
-	}
-
-	public void forceSymetric() {
-		forceSymetric = true;
 	}
 
 	/**
