@@ -1,6 +1,7 @@
 package com.ahsailabs.alcoresample
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.ahsailabs.alutils.Prefs
+import com.ahsailabs.alutils.PrefsData
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +41,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //PrefsData.setName("ahmad saifullah")
+        val test = PrefsData.getName()
+        Log.e("ahmad", test)
+
+        //Prefs.with(this).save("yess","ahmad saifullah")
+        val yess = Prefs.with(this).getString("yess", "")
+        Log.e("ahmad-x", yess)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

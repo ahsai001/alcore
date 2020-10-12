@@ -10,8 +10,9 @@ android {
         applicationId "com.ahsailabs.alcoresample"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 75
-        versionName "1.13.97.262"
+        versionCode 76
+        versionName "1.13.98.264"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,5 +48,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation project(path: ':alutils')
+    implementation project(path: ':alcore')
+    implementation project(path: ':zlcore')
+
+    implementation 'com.github.ahsai001:sqlitewrapper:0.6.17.16'
 
 }

@@ -101,9 +101,6 @@ public class SPrefs implements SharedPreferences {
 		// Initialize encryption/decryption key for AES
 		try {
 			String key = SPrefs.generateAesKeyName(context);
-			if(keyAlias != null) {
-				key = KeyStoreHelper.encrypt(keyAlias, key);
-			}
 			String value = SPrefs.sFile.getString(key, null);
 			if (value == null) {
 				value = SPrefs.generateAesKeyValue();

@@ -61,7 +61,7 @@ dependencies {
 
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
 
-    implementation 'com.github.ahsai001:sqlitewrapper:0.6.16.14'
+    implementation 'com.github.ahsai001:sqlitewrapper:0.6.17.16'
 
 
     implementation 'androidx.multidex:multidex:2.0.1'

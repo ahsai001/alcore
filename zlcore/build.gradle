@@ -108,7 +108,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:17.0.0'
 
 
-    implementation 'com.github.ahsai001:sqlitewrapper:0.6.16.14'
+    implementation 'com.github.ahsai001:sqlitewrapper:0.6.17.16'
 
     testImplementation 'junit:junit:4.12'
 }
