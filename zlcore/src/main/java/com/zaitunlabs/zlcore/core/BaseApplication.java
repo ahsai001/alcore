@@ -2,30 +2,21 @@ package com.zaitunlabs.zlcore.core;
 
 import android.content.Context;
 
-import com.ahsailabs.alcore.constants.AlCoreConstanta;
 import com.ahsailabs.alcore.core.AlCoreApplication;
 import com.ahsailabs.alcore.events.ReInitializeDatabaseEvent;
-import com.ahsailabs.alutils.CommonUtil;
 import com.ahsailabs.alutils.DebugUtil;
 import com.ahsailabs.sqlitewrapper.SQLiteWrapper;
 import com.zaitunlabs.zlcore.tables.AppListDataModel;
 import com.zaitunlabs.zlcore.tables.AppListModel;
 import com.zaitunlabs.zlcore.tables.AppListPagingModel;
-import com.ahsailabs.alcore.tables.BookmarkModel;
 import com.zaitunlabs.zlcore.tables.StoreDataModel;
 import com.zaitunlabs.zlcore.tables.StoreModel;
 import com.zaitunlabs.zlcore.tables.StorePagingModel;
 
-import org.acra.collector.CrashReportData;
-import org.acra.config.ACRAConfiguration;
-import org.acra.sender.ReportSender;
-import org.acra.sender.ReportSenderException;
-import org.acra.sender.ReportSenderFactory;
 import org.greenrobot.eventbus.Subscribe;
 
 public class BaseApplication extends AlCoreApplication {
 	public static final String DATABASE_NAME = "zlcore.db";
-	public static final String TLSV_MIN = "TLSv1.2";
 
 	@Override
 	public void onCreate() {
@@ -53,15 +44,6 @@ public class BaseApplication extends AlCoreApplication {
 
 			@Override
 			public void configure(SQLiteWrapper sqLiteWrapper) {
-				//Bookmark
-				sqLiteWrapper.addTable(new SQLiteWrapper.Table(BookmarkModel.class)
-						.addStringField("title")
-						.addStringField("desc")
-						.addStringField("link")
-						.enableRecordLog()
-						.addIndex("link"));
-
-
 				//Store
 				sqLiteWrapper.addTable(new SQLiteWrapper.Table(StoreModel.class)
 						.addIntField("status")

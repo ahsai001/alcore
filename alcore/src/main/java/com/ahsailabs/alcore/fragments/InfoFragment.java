@@ -188,7 +188,7 @@ public class InfoFragment extends BaseFragment {
                     info.setRead(true);
 
                     //save to DB
-                    info.save();
+                    info.update();
 
                     //notify list
                     InfoUtil.notifyUpdateInfoList(position, true);
@@ -209,12 +209,12 @@ public class InfoFragment extends BaseFragment {
                             public boolean onMenuItemClick(MenuItem item) {
                                 if(item.getItemId() == R.id.action_mark_as_read) {
                                     info.setRead(true);
-                                    info.save();
+                                    info.update();
                                     InfoUtil.notifyInfoCounter();
                                     InfoUtil.notifyUpdateInfoList(position, true);
                                 } else if(item.getItemId() == R.id.action_mark_as_unread) {
                                     info.setRead(false);
-                                    info.save();
+                                    info.update();
                                     InfoUtil.notifyInfoCounter();
                                     InfoUtil.notifyUpdateInfoList(position, false);
                                 } else if(item.getItemId() == R.id.action_delete) {

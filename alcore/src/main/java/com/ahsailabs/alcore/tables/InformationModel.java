@@ -1,5 +1,6 @@
 package com.ahsailabs.alcore.tables;
 
+import com.ahsailabs.alcore.constants.AlCoreConstanta;
 import com.ahsailabs.alcore.core.AlCoreApplication;
 import com.ahsailabs.sqlitewrapper.SQLiteWrapper;
 
@@ -53,38 +54,38 @@ public class InformationModel extends SQLiteWrapper.TableClass {
 
     @Override
     protected String getDatabaseName() {
-        return AlCoreApplication.DATABASE_NAME;
+        return AlCoreConstanta.DATABASE_NAME;
     }
 
     public static List<InformationModel> getAllInfo(){
-        return SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).findAll(null, InformationModel.class);
+        return SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).findAll(null, InformationModel.class);
     }
 
     public static List<InformationModel> getAllUnreadInfo(){
-        return SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).findAllWithCriteria(null, InformationModel.class,
+        return SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).findAllWithCriteria(null, InformationModel.class,
                 "read=0", null);
     }
 
     public static int allInfoCount(){
-        return (int)SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).count(null, InformationModel.class,null, null);
+        return (int)SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).count(null, InformationModel.class,null, null);
     }
 
     public static int unreadInfoCount(){
-        return (int)SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).count(null, InformationModel.class,"read=0", null);
+        return (int)SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).count(null, InformationModel.class,"read=0", null);
     }
 
     public static void markAllAsRead(){
-        SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).execSQL("update "+InformationModel.class.getSimpleName()+" set read=1", null);
+        SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).execSQL("update "+InformationModel.class.getSimpleName()+" set read=1", null);
     }
 
     public static InformationModel getInfo(long id){
-        return SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).findById(id, null, InformationModel.class);
+        return SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).findById(id, null, InformationModel.class);
     }
 
 
 
     public static void deleteAllInfo(){
-        SQLiteWrapper.of(AlCoreApplication.DATABASE_NAME).deleteAll(null, InformationModel.class);
+        SQLiteWrapper.of(AlCoreConstanta.DATABASE_NAME).deleteAll(null, InformationModel.class);
     }
 
     public String getTitle() {

@@ -7,6 +7,7 @@ import androidx.multidex.MultiDex;
 
 import com.ahsailabs.alcore.R;
 import com.ahsailabs.alcore.constants.AlCoreConstanta;
+import com.ahsailabs.alcore.tables.BookmarkModel;
 import com.ahsailabs.alcore.tables.InformationModel;
 import com.ahsailabs.alcore.utils.ApplicationWacther;
 import com.ahsailabs.alcore.utils.audio.BackSoundService;
@@ -37,7 +38,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 
 public class AlCoreApplication extends Application {
-	public static final String DATABASE_NAME = "alcore.db";
 	public static final String TLSV_MIN = "TLSv1.2";
 	@Override
 	protected void attachBaseContext(Context base) {
@@ -112,7 +112,7 @@ public class AlCoreApplication extends Application {
 
 			@Override
 			public String getDatabaseName() {
-				return AlCoreApplication.DATABASE_NAME;
+				return AlCoreConstanta.DATABASE_NAME;
 			}
 
 			@Override
@@ -132,6 +132,14 @@ public class AlCoreApplication extends Application {
 						.addStringField("infoUrl")
 						.enableRecordLog()
 						.addIndex("read"));
+				
+				//Bookmark
+				sqLiteWrapper.addTable(new SQLiteWrapper.Table(BookmarkModel.class)
+						.addStringField("title")
+						.addStringField("desc")
+						.addStringField("link")
+						.enableRecordLog()
+						.addIndex("link"));
 
 			}
 		});

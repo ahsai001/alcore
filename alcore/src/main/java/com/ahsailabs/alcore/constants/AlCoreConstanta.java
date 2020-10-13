@@ -14,7 +14,7 @@ public class AlCoreConstanta {
     public static final String ACTION_MANAGE_SHAUM_SHOLAT_REMINDER = "com.zaitunlabs.zlcore.action.MANAGE_SHAUM_SHOLAT_REMINDER";
     public static final String TELEPHONE_SCHEMA = "tel:";
     public static final String MAILTO_SCHEMA = "mailto:";
-    public static String DATABASE_NAME = null;
+    public static String DATABASE_NAME = "alcore.db";
     public static int DATABASE_VERSION = 1;
     public static String CRASH_MAIL_TO = null;
 
