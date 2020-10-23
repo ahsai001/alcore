@@ -127,21 +127,20 @@ public abstract class GeneralWebViewFragment extends Fragment {
     private ViewTreeObserver.OnScrollChangedListener onScrollChangedListener;
 
     public void setArg(Context context, int position, String baseUrl, String url, String defaultMessage, ArrayList<String> whiteListDomains){
-        setArg(context, position,baseUrl, url,defaultMessage,-1, whiteListDomains);
+        setArg(context, position,baseUrl, url, defaultMessage, whiteListDomains, null);
     }
 
-    public void setArg(Context context, int position, String baseUrl, String url, String defaultMessage, int bgColor, ArrayList<String> whiteListDomains){
-        ArrayList<String> headerList = HttpClientUtil.getHeaderList(false, false, false, false);
-        setArg(context, position,baseUrl, url,defaultMessage,-1, false, headerList, whiteListDomains);
+    public void setArg(Context context, int position, String baseUrl, String url, String defaultMessage, ArrayList<String> whiteListDomains, ArrayList<String> headerList){
+        setArg(context, position,baseUrl, url,defaultMessage, whiteListDomains, headerList, -1);
     }
 
-    public void setArg(Context context, int position, String baseUrl, String url, String defaultMessage, int bgColor, boolean showBookmark, ArrayList<String> headerList, ArrayList<String> whiteListDomains){
+    public void setArg(Context context, int position, String baseUrl, String url, String defaultMessage, ArrayList<String> whiteListDomains, ArrayList<String> headerList, int bgColor){
         HashMap<String, String> headerMap = HttpClientUtil.getHeaderMap(context, headerList);
-        setArg(position,baseUrl, url,defaultMessage,-1, false, false, null, null, null, headerMap, whiteListDomains);
+        setArg(position,baseUrl, url,defaultMessage,whiteListDomains, headerMap, -1, false, false, null, null, null);
     }
 
-    public void setArg(int position, String baseUrl, String url, String defaultMessage, int bgColor, boolean showBookmark,
-                       boolean showShare, String shareInstruction, String shareTitle, String shareMessage, HashMap<String, String> headerMap, ArrayList<String> whiteListDomains){
+    public void setArg(int position, String baseUrl, String url, String defaultMessage, ArrayList<String> whiteListDomains, HashMap<String, String> headerMap, int bgColor, boolean showBookmark,
+                       boolean showShare, String shareInstruction, String shareTitle, String shareMessage){
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         b.putString(ARG_BASE_URL,baseUrl);

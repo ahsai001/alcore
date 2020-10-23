@@ -5,6 +5,7 @@ import android.net.http.SslError;
 import android.os.Build;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import android.text.TextUtils;
@@ -62,17 +63,14 @@ public class HttpClientUtil {
     public static int DATA_DEFAULT_READ_TIMEOUT_MILLIS = 30 * 1000; // 30s
     public static int DATA_DEFAULT_WRITE_TIMEOUT_MILLIS = 30 * 1000; // 30s
 
-
     public static int IMAGE_DEFAULT_CONNECT_TIMEOUT_MILLIS = 15 * 1000; // 15s
     public static int IMAGE_DEFAULT_READ_TIMEOUT_MILLIS = 30 * 1000; // 30s
     public static int IMAGE_DEFAULT_WRITE_TIMEOUT_MILLIS = 30 * 1000; // 30s
-
 
     public static int UPLOAD_DEFAULT_CONNECT_TIMEOUT_MILLIS = 15 * 1000; // 15s
     public static int UPLOAD_DEFAULT_READ_TIMEOUT_MILLIS = 60 * 1000; // 60s
     public static int UPLOAD_DEFAULT_WRITE_TIMEOUT_MILLIS = 60 * 1000; // 60s
 
-    private static String webview_user_agent = null;
     private static String androidId = null;
     private static String randomUUID = null;
 
@@ -82,11 +80,33 @@ public class HttpClientUtil {
     private static volatile OkHttpClient singletonUploadUnsafeClient = null;
     private static volatile BuilderConfig singletonBuilderConfig = null;
 
+    public enum AuthType {
+        APIKEY,
+        BASIC,
+        BEARER,
+        NONE
 
+    }
 
-    public static ArrayList<String> getHeaderList(boolean isMeid, boolean isAndroidID, boolean isRandomUUID, boolean isUserAgent){
+    public static ArrayList<String> getHeaderList(boolean isMeid, boolean isAndroidID, boolean isRandomUUID, boolean isUserAgent, AuthType authType){
         ArrayList<String> headerList = new ArrayList<>();
-        headerList.add("x-bearer");
+
+        if(authType != null) {
+            switch (authType) {
+                case APIKEY:
+                    headerList.add("x-apikey");
+                    break;
+                case BASIC:
+                    headerList.add("x-basic");
+                    break;
+                case BEARER:
+                    headerList.add("x-bearer");
+                    break;
+                default:
+                    break;
+            }
+        }
+
         headerList.add("x-screensize");
         headerList.add("x-model");
         if(isMeid) {
@@ -268,26 +288,27 @@ public class HttpClientUtil {
 
 
     public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid){
-        return getHTTPClient(context,apiVersion,isMeid, null);
+        return getHTTPClient(context,apiVersion,isMeid, false);
     }
-
-    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, BuilderConfig builderConfig){
-        return getHTTPClient(context,apiVersion,isMeid,false, builderConfig);
-    }
-
 
     public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload){
         return getHTTPClient(context,apiVersion,isMeid, isUpload, null);
     }
 
     public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload, BuilderConfig builderConfig){
-        List<String> headerList = getHeaderList(isMeid, isMeid, isMeid, isMeid);
-        Map<String, String> headerMap = getHeaderMap(context, headerList);
-        return getHTTPClient(context,headerMap,apiVersion,isUpload, builderConfig);
+        return getHTTPClient(context,apiVersion, isMeid, isUpload, builderConfig, null, null);
     }
 
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload, BuilderConfig builderConfig, @Nullable Map<String, String> headerMap){
+        return getHTTPClient(context,apiVersion, isMeid, isUpload, builderConfig, headerMap, null);
+    }
 
-    public static OkHttpClient getHTTPClient(final Context context, Map<String, String> headerMap, String apiVersion, boolean isUpload, BuilderConfig builderConfig){
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload, BuilderConfig builderConfig, @Nullable Map<String, String> headerMap, AuthType authType){
+        List<String> headerList = getHeaderList(isMeid, isMeid, isMeid, isMeid, authType);
+        Map<String, String> resultMap = getHeaderMap(context, headerList);
+        if(headerMap != null){
+            resultMap.putAll(headerMap);
+        }
         if(isUpload){
             if(singletonUploadClient != null){
                 return singletonUploadClient;
@@ -300,7 +321,7 @@ public class HttpClientUtil {
 
         OkHttpClient client = null;
         if(context!= null) {
-            Interceptor interceptor = getInterceptor(headerMap, apiVersion);
+            Interceptor interceptor = getInterceptor(resultMap, apiVersion);
             // Add the interceptor to OkHttpClient
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
                     .connectTimeout(isUpload ? HttpClientUtil.UPLOAD_DEFAULT_CONNECT_TIMEOUT_MILLIS : HttpClientUtil.DATA_DEFAULT_CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)

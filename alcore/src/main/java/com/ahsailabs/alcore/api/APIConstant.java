@@ -8,7 +8,6 @@ public class APIConstant {
     public static final int CACHED_TIME = 24; //hours
     public static String BASE_URL = "https://api.zaitunlabs.com";
     public static String API_VERSION = "v1";
-    public static String API_KEY = "";
     public static String API_APPID = "";
     public static String API_OTHER_APPS = "https://api.zaitunlabs.com/genpro/v1/applist";
     public static String API_STORE = "https://api.zaitunlabs.com/genpro/v1/storelist";
@@ -22,10 +21,6 @@ public class APIConstant {
 
     public static void setApiVersion(String apiVersion) {
         API_VERSION = apiVersion;
-    }
-
-    public static void setApiKey(String apiKey) {
-        API_KEY = apiKey;
     }
 
     public static void setApiAppid(String apiAppid) {

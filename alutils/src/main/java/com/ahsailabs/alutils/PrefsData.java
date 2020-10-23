@@ -14,6 +14,7 @@ public class PrefsData {
    private static final String USERID = "userid";
    private static final String SECRET = "secret";
    private static final String TOKEN = "token";
+   private static final String APIKEY = "apikey";
    private static final String EMAIL = "email";
    private static final String PHONE = "phone";
    private static final String PHOTO = "photo";
@@ -92,6 +93,14 @@ public class PrefsData {
    }
 
 
+   public static String getApiKey(){
+      return Lookup.getS(APIKEY,"");
+   }
+   public static String getApiKey(String defaultValue){
+      return Lookup.getS(APIKEY, defaultValue);
+   }
+
+
    public static String getSecret(){
       return Lookup.getS(SECRET,"");
    }
@@ -134,6 +143,10 @@ public class PrefsData {
       Lookup.setS(TOKEN,value);
    }
 
+   public static void setApiKey(String value){
+      Lookup.setS(APIKEY,value);
+   }
+
    public static void setLogin(boolean value){
       Lookup.setS(ISLOGIN,value);
    }
@@ -174,15 +187,11 @@ public class PrefsData {
       Lookup.removeS(PHOTO);
       Lookup.removeS(SECRET);
       Lookup.removeS(TOKEN);
+      Lookup.removeS(APIKEY);
       Lookup.removeS(ISLOGIN);
       Lookup.removeS(LOGINTYPE);
       Lookup.removeS(PUSHY_TOKEN);
       Lookup.removeS(PUSHY_TOKEN_SENT);
       Lookup.removeS(PUSHY_TOKEN_LOGIN_SENT);
-   }
-
-
-   public static String getApiKey() {
-      return null;
    }
 }

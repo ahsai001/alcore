@@ -22,6 +22,9 @@ import com.ahsailabs.alutils.PrefsData;
 import com.ahsailabs.alutils.ViewUtil;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -79,34 +82,46 @@ public abstract class BaseLoginActivity extends BaseActivity implements LoginCal
     String appInfo;
 
 
-    protected abstract String getUserIdHint();
-    protected abstract String getUserIdFieldName();
-    protected abstract String getUserIdInvalidMessage();
-    protected abstract String getPasswordHint();
-    protected abstract String getPasswordFieldName();
-    protected abstract String getPasswordInvalidMessage();
-    protected abstract String getButtonLoginText();
-
-    protected abstract String getLoginTypeFieldName();
-    protected abstract String getIconUrl();
+    protected abstract @Nullable String getIconUrl();
     protected abstract int getIconResId();
-    protected abstract String getLoginExplaination();
+
+    protected abstract @Nullable String getUserIdHint();
+    protected abstract @Nullable String getUserIdFieldName();
     protected abstract boolean isUserIDValid(String userId);
+    protected abstract @Nullable String getUserIdInvalidMessage();
+
+    protected abstract @Nullable String getPasswordHint();
+    protected abstract @Nullable String getPasswordFieldName();
     protected abstract boolean isPasswordValid(String password);
+    protected abstract @Nullable String getPasswordInvalidMessage();
+
+    protected abstract boolean isUsingErrorOfTextInputLayout();
+
+    protected abstract @NonNull String getButtonLoginText();
+
+    protected abstract @Nullable String getLoginTypeFieldName();
+
+    protected abstract @Nullable String getLoginExplaination();
+
+    protected abstract @Nullable HttpClientUtil.BuilderConfig getHttpBuilderConfig();
+
     protected abstract String getLoginUrl();
-    protected abstract String getAPIVersion();
+    protected abstract @Nullable String getAPIVersion();
+
+    protected abstract @Nullable Map<String, String> getCustomHeaderMap();
+    protected abstract @Nullable                                                                                  HttpClientUtil.AuthType getAuthType();
+
     protected abstract boolean isMeidIncluded();
     protected abstract boolean clearAllCache();
-    protected abstract HashMap<String, String> getLoginTypeViewValueList();
-    protected abstract String getDefaultValueLoginType();
+    protected abstract @Nullable HashMap<String, String> getLoginTypeViewValueList();
+    protected abstract @Nullable String getDefaultValueLoginType();
     protected abstract String getCookedPassword(String rawPassword);
+
     protected abstract boolean isHandleCustomSuccessResponse();
     protected abstract void handleCustomSuccessResponse(JSONObject response, LoginCallbackResult loginCallbackResult);
     protected abstract void handleCustomData(JSONObject data);
     protected abstract boolean isHandleCustomLogin();
     protected abstract void handleCustomLogin(String appType, String username, String password, LoginCallbackResult loginCallbackResult);
-
-
 
     public TextInputEditText getUserIDView() {
         return mUserIDView;
@@ -316,6 +331,8 @@ public abstract class BaseLoginActivity extends BaseActivity implements LoginCal
         // Reset errors.
         mUserIDView.setError(null);
         mPasswordView.setError(null);
+        mUserIDTILView.setError(null);
+        mPasswordTILView.setError(null);
 
         // Store values at the time of the login attempt.
         String userId = mUserIDView.getText().toString();
@@ -324,32 +341,51 @@ public abstract class BaseLoginActivity extends BaseActivity implements LoginCal
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.zlcore_error_field_required));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        if (!isPasswordValid(password)) {
-            mPasswordView.setError(TextUtils.isEmpty(getPasswordInvalidMessage())?
-                    getString(R.string.zlcore_error_invalid_password):getPasswordInvalidMessage());
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
         if (TextUtils.isEmpty(userId)) {
-            mUserIDView.setError(getString(R.string.zlcore_error_field_required));
+            if(isUsingErrorOfTextInputLayout()) {
+                mUserIDTILView.setError(getString(R.string.zlcore_error_field_required));
+            } else {
+                mUserIDView.setError(getString(R.string.zlcore_error_field_required));
+            }
             focusView = mUserIDView;
             cancel = true;
         }
 
         if (!isUserIDValid(userId)) {
-            mUserIDView.setError(TextUtils.isEmpty(getUserIdInvalidMessage())?
-                    getString(R.string.zlcore_error_invalid_userid):getUserIdInvalidMessage());
+            if(isUsingErrorOfTextInputLayout()) {
+                mUserIDTILView.setError(TextUtils.isEmpty(getUserIdInvalidMessage()) ?
+                        getString(R.string.zlcore_error_invalid_userid) : getUserIdInvalidMessage());
+            } else {
+                mUserIDView.setError(TextUtils.isEmpty(getUserIdInvalidMessage()) ?
+                        getString(R.string.zlcore_error_invalid_userid) : getUserIdInvalidMessage());
+            }
             focusView = mUserIDView;
             cancel = true;
         }
+
+        if (TextUtils.isEmpty(password)) {
+            if(isUsingErrorOfTextInputLayout()) {
+                mPasswordTILView.setError(getString(R.string.zlcore_error_field_required));
+            } else {
+                mPasswordView.setError(getString(R.string.zlcore_error_field_required));
+            }
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        if (!isPasswordValid(password)) {
+            if(isUsingErrorOfTextInputLayout()){
+                mPasswordTILView.setError(TextUtils.isEmpty(getPasswordInvalidMessage())?
+                        getString(R.string.zlcore_error_invalid_password):getPasswordInvalidMessage());
+            } else {
+                mPasswordView.setError(TextUtils.isEmpty(getPasswordInvalidMessage()) ?
+                        getString(R.string.zlcore_error_invalid_password) : getPasswordInvalidMessage());
+            }
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -375,7 +411,7 @@ public abstract class BaseLoginActivity extends BaseActivity implements LoginCal
             } else {
                 //do hit api
                 AndroidNetworking.post(getLoginUrl())
-                        .setOkHttpClient(HttpClientUtil.getHTTPClient(BaseLoginActivity.this, getAPIVersion(), isMeidIncluded()))
+                        .setOkHttpClient(HttpClientUtil.getHTTPClient(BaseLoginActivity.this, getAPIVersion(), isMeidIncluded(), false, getHttpBuilderConfig(), getCustomHeaderMap(), getAuthType()))
                         .addUrlEncodeFormBodyParameter(TextUtils.isEmpty(getUserIdFieldName())?"username":getUserIdFieldName(), username)
                         .addUrlEncodeFormBodyParameter(TextUtils.isEmpty(getPasswordFieldName())?"password":getPasswordFieldName(), cookedPassword)
                         .addUrlEncodeFormBodyParameter(TextUtils.isEmpty(getLoginTypeFieldName())?"loginType":getLoginTypeFieldName(), appType)
@@ -393,12 +429,16 @@ public abstract class BaseLoginActivity extends BaseActivity implements LoginCal
                                     if (status == APIResponse.GENERIC_RESPONSE.OK) {
                                         //success login
                                         JSONObject data = response.optJSONObject("data");
-                                        String token = data.optString("token", null);
-                                        String name = data.optString("name", null);
-                                        String phone = data.optString("phone", null);
-                                        String email = data.optString("email", null);
-                                        String photo = data.optString("photo", null);
-                                        setSuccess(token, name, phone, email, photo);
+                                        if(data != null) {
+                                            String token = data.optString("token", "");
+                                            String name = data.optString("name", "");
+                                            String phone = data.optString("phone", "");
+                                            String email = data.optString("email", "");
+                                            String photo = data.optString("photo", "");
+                                            setSuccess(token, name, phone, email, photo);
+                                        } else {
+                                            setSuccess("", "", "", "", "");
+                                        }
                                         handleCustomData(data);
                                         CommonUtil.showToast(BaseLoginActivity.this, message);
                                     } else {
