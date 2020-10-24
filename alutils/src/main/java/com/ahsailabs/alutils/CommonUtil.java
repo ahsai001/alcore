@@ -31,6 +31,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -3339,5 +3340,11 @@ public class CommonUtil {
 		} else {
 			showToast(context, "Sorry, there is no application can handle this");
 		}
+	}
+
+	public static int getDarkerShade(int color, float shadeFactor){
+		return Color.rgb((int) (shadeFactor * Color.red(color)),
+				(int) (shadeFactor * Color.green(color)),
+				(int) (shadeFactor * Color.blue(color)));
 	}
 }

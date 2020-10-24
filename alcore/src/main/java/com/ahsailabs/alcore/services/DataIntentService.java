@@ -51,7 +51,7 @@ public class DataIntentService extends JobIntentService {
     private static final String PARAM_EXTRAS = "param_extras";
     private static final String PARAM_IS_MEID = InfoFragment.PARAM_IS_MEID;
     private static final String PARAM_TAG = "param_tag";
-
+    private static final String PARAM_AUTH_TYPE = "param_auth_type";
 
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
@@ -86,12 +86,14 @@ public class DataIntentService extends JobIntentService {
         final Extras extras = (Extras) CommonUtil.getSerializableIntent(intent, PARAM_EXTRAS,null);
         boolean isMeid = CommonUtil.getBooleanIntent(intent, PARAM_IS_MEID, false);
         final String tag = CommonUtil.getStringIntent(intent, PARAM_TAG,null);
+        HttpClientUtil.AuthType authType = (HttpClientUtil.AuthType) CommonUtil.getSerializableIntent(intent, PARAM_AUTH_TYPE,null);
+
 
         final NotificationProgressUtil progressUtils = new NotificationProgressUtil(this,
                 title, desc, icon, notifID);
 
         ANRequest.MultiPartBuilder builder = AndroidNetworking.upload(url)
-                .setOkHttpClient(HttpClientUtil.getHTTPClient(this, APIConstant.API_VERSION, isMeid, true));
+                .setOkHttpClient(HttpClientUtil.getHTTPClient(this, APIConstant.API_VERSION, authType, isMeid));
 
 
         if(headers != null){
@@ -141,12 +143,13 @@ public class DataIntentService extends JobIntentService {
         final Extras extras = (Extras) CommonUtil.getSerializableIntent(intent, PARAM_EXTRAS,null);
         boolean isMeid = CommonUtil.getBooleanIntent(intent, PARAM_IS_MEID, false);
         final String tag = CommonUtil.getStringIntent(intent, PARAM_TAG,null);
+        HttpClientUtil.AuthType authType = (HttpClientUtil.AuthType) CommonUtil.getSerializableIntent(intent, PARAM_AUTH_TYPE,null);
 
         final NotificationProgressUtil progressUtils = new NotificationProgressUtil(this,
                 title, desc, icon, notifID);
 
         ANRequest.PostRequestBuilder builder = AndroidNetworking.post(url)
-                .setOkHttpClient(HttpClientUtil.getHTTPClient(this, APIConstant.API_VERSION, isMeid));
+                .setOkHttpClient(HttpClientUtil.getHTTPClient(this, APIConstant.API_VERSION, authType, isMeid));
 
         if(headers != null){
             builder.addHeaders(headers.getHeaderList());
@@ -183,7 +186,7 @@ public class DataIntentService extends JobIntentService {
 
 
     public static void startUpload(Context context, String url, int icon, String title, String desc,
-                                   int notifID, FileParts files, HeaderParts headers, BodyParts bodys, Extras extras, boolean isMeid, String tag) {
+                                   int notifID, FileParts files, HeaderParts headers, BodyParts bodys, Extras extras, boolean isMeid, HttpClientUtil.AuthType authType, String tag) {
         Intent intent = new Intent(context, DataIntentService.class);
         intent.setAction(ACTION_UPLOAD);
         intent.putExtra(PARAM_URL, url);
@@ -197,12 +200,13 @@ public class DataIntentService extends JobIntentService {
         intent.putExtra(PARAM_EXTRAS, extras);
         intent.putExtra(PARAM_IS_MEID, isMeid);
         intent.putExtra(PARAM_TAG, tag);
+        intent.putExtra(PARAM_AUTH_TYPE, authType);
         JobIntentService.enqueueWork(context,DataIntentService.class,JOB_ID,intent);
     }
 
 
     public static void startPost(Context context, String url, int icon, String title, String desc,
-                                 int notifID, HeaderParts headers, BodyParts bodys, Extras extras, boolean isMeid, String tag) {
+                                 int notifID, HeaderParts headers, BodyParts bodys, Extras extras, boolean isMeid, HttpClientUtil.AuthType authType, String tag) {
         Intent intent = new Intent(context, DataIntentService.class);
         intent.setAction(ACTION_POST);
         intent.putExtra(PARAM_URL, url);
@@ -215,6 +219,7 @@ public class DataIntentService extends JobIntentService {
         intent.putExtra(PARAM_EXTRAS, extras);
         intent.putExtra(PARAM_IS_MEID, isMeid);
         intent.putExtra(PARAM_TAG, tag);
+        intent.putExtra(PARAM_AUTH_TYPE, authType);
         JobIntentService.enqueueWork(context,DataIntentService.class,JOB_ID,intent);
     }
 

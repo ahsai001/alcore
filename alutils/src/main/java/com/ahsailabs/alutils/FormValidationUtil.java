@@ -10,6 +10,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +48,7 @@ public class FormValidationUtil {
     public static final int UnfocusType = 3;
     private Context context;
     private int defaultValidationType;
-    private List<Validator> mValidatorList;
+    private List<AbstractValidator> mValidatorList;
     private ViewEnablerUtil viewEnablerUtil = null;
 
     public FormValidationUtil(Context context){
@@ -58,7 +62,7 @@ public class FormValidationUtil {
     }
 
 
-    public void addValidator(Validator validator){
+    public void addValidator(AbstractValidator validator){
         mValidatorList.add(validator);
     }
 
@@ -68,16 +72,16 @@ public class FormValidationUtil {
     }
 
     public void init(){
-        for (Validator validator : mValidatorList){
+        for (AbstractValidator validator : mValidatorList){
             if(viewEnablerUtil != null) {
                 validator.addOnValidationCallback(new OnValidationCallback() {
                     @Override
-                    public boolean onSuccess(View view, AbstractValidatorRule validatorRule) {
+                    public boolean onSuccess(View view, ValidatorRuleInterface validatorRule) {
                         return false;
                     }
 
                     @Override
-                    public boolean onFailed(View view, AbstractValidatorRule validatorRule, String message) {
+                    public boolean onFailed(View view, ValidatorRuleInterface validatorRule, String message) {
                         return false;
                     }
 
@@ -89,7 +93,9 @@ public class FormValidationUtil {
                             viewEnablerUtil.unDone(String.valueOf(view.getId()));
                         }
                     }
-                }).setAlwaysShowErrorOnView(true).setValidationType(FormValidationUtil.IdleType);
+                });
+                validator.setAlwaysShowErrorOnView(true);
+                validator.setValidationType(FormValidationUtil.IdleType);
             }
 
             int validationType = validator.getValidationType();
@@ -102,7 +108,7 @@ public class FormValidationUtil {
         }
     }
 
-    private void enableUnfocusValidation(final Validator validator) {
+    private void enableUnfocusValidation(final AbstractValidator validator) {
         CommonUtil.performTaskWhenUnFocus(validator.mView, new Runnable() {
             @Override
             public void run() {
@@ -111,7 +117,7 @@ public class FormValidationUtil {
         });
     }
 
-    private void enableTypeIdleValidation(final Validator validator){
+    private void enableTypeIdleValidation(final AbstractValidator validator){
         if(validator.mView instanceof EditText) {
             CommonUtil.performTaskWhenTypeIdle((EditText) validator.mView, new Runnable() {
                 @Override
@@ -122,7 +128,7 @@ public class FormValidationUtil {
         }
     }
 
-    public Validator getValidator(int position) {
+    public AbstractValidator getValidator(int position) {
         if(position < mValidatorList.size()) {
             return mValidatorList.get(position);
         }
@@ -133,29 +139,26 @@ public class FormValidationUtil {
         return mValidatorList.size();
     }
 
-    public void removeValidator(Validator validator){
+    public void removeValidator(AbstractValidator validator){
         mValidatorList.remove(validator);
     }
 
     public boolean validate() throws ValidatorException {
         boolean isFirsErrorFocused = false;
         for (int x=0; x<mValidatorList.size(); x++){
-            Validator validator = mValidatorList.get(x);
+            AbstractValidator validator = mValidatorList.get(x);
             for (int y=0; y<validator.mRuleList.size(); y++){
-                AbstractValidatorRule rule = validator.mRuleList.get(y);
-                if(validator.mView instanceof TextView) {
-                    TextView mTextView = (TextView) validator.mView;
-                    boolean isValid = rule.isValid(validator.mView, mTextView.getText().toString(), validator.packet);
-                    if (!isValid) {
-                        mTextView.setError(rule.getMessage());
-                        if (!isFirsErrorFocused) {
-                            mTextView.requestFocus();
-                            isFirsErrorFocused = true;
-                        }
-                        break;
-                    } else {
-                        mTextView.setError(null);
+                ValidatorRuleInterface rule = validator.mRuleList.get(y);
+                boolean isValid = rule.isValid(validator.mView, validator.packet);
+                if (!isValid) {
+                    validator.showError(rule.getMessage());
+                    if (!isFirsErrorFocused) {
+                        validator.mView.requestFocus();
+                        isFirsErrorFocused = true;
                     }
+                    break;
+                } else {
+                    validator.showError(null);
                 }
             }
         }
@@ -167,19 +170,16 @@ public class FormValidationUtil {
         int totalRule = 0;
         int totalSuccessRule = 0;
         for (int x=0; x<mValidatorList.size(); x++){
-            Validator validator = mValidatorList.get(x);
+            AbstractValidator validator = mValidatorList.get(x);
             totalRule += validator.mRuleList.size();
             for (int y=0; y<validator.mRuleList.size(); y++){
-                AbstractValidatorRule rule = validator.mRuleList.get(y);
-                if(validator.mView instanceof TextView) {
-                    TextView mTextView = (TextView) validator.mView;
-                    boolean isValid = rule.isValid(validator.mView, mTextView.getText().toString(), validator.packet);
-                    if (!isValid) {
-                        if(onValidationCallback.onFailed(validator.mView, rule, rule.getMessage()))break;
-                    } else {
-                        totalSuccessRule++;
-                        if(onValidationCallback.onSuccess(validator.mView, rule))break;
-                    }
+                ValidatorRuleInterface rule = validator.mRuleList.get(y);
+                boolean isValid = rule.isValid(validator.mView, validator.packet);
+                if (!isValid) {
+                    if(onValidationCallback.onFailed(validator.mView, rule, rule.getMessage()))break;
+                } else {
+                    totalSuccessRule++;
+                    if(onValidationCallback.onSuccess(validator.mView, rule))break;
                 }
             }
         }
@@ -187,25 +187,118 @@ public class FormValidationUtil {
         return totalRule == totalSuccessRule;
     }
 
+    public static class EditTextValidator extends AbstractValidator{
+        public EditTextValidator(Context context, View mView, View mErrorView, Object packet) {
+            super(context, mView, mErrorView, packet);
+        }
+
+        public EditTextValidator(Context context, View mView, View mErrorView) {
+            super(context, mView, mErrorView);
+        }
+
+        public EditTextValidator(Context context, View mView) {
+            super(context, mView);
+        }
+
+        public EditTextValidator(Context context, int viewResourceId, int errorViewResoureId, Object packet) {
+            super(context, viewResourceId, errorViewResoureId, packet);
+        }
+
+        public EditTextValidator(Context context, int viewResourceId, int errorViewResoureId) {
+            super(context, viewResourceId, errorViewResoureId);
+        }
+
+        public EditTextValidator(Context context, int viewResourceId) {
+            super(context, viewResourceId);
+        }
+
+        @Override
+        public void showError(String message) {
+            if(mErrorView != null) {
+                ((TextInputLayout) mErrorView).setError(message);
+            }
+        }
+    }
+
+    public static class EditText2Validator extends AbstractValidator{
+
+
+        public EditText2Validator(Context context, View mView, View mErrorView, Object packet) {
+            super(context, mView, mErrorView, packet);
+        }
+
+        public EditText2Validator(Context context, View mView, View mErrorView) {
+            super(context, mView, mErrorView);
+        }
+
+        public EditText2Validator(Context context, View mView) {
+            super(context, mView);
+        }
+
+        public EditText2Validator(Context context, int viewResourceId, int errorViewResoureId, Object packet) {
+            super(context, viewResourceId, errorViewResoureId, packet);
+        }
+
+        public EditText2Validator(Context context, int viewResourceId, int errorViewResoureId) {
+            super(context, viewResourceId, errorViewResoureId);
+        }
+
+        public EditText2Validator(Context context, int viewResourceId) {
+            super(context, viewResourceId);
+        }
+
+        @Override
+        public void showError(String message) {
+            ((EditText)mErrorView).setError(message);
+        }
+    }
 
     //Validator class
-    public static class Validator{
-        private Context mContext;
-        private View mView;
-        private Object packet;
-        private List<AbstractValidatorRule> mRuleList;
-        private List<OnValidationCallback> onValidationCallbackList = new ArrayList<>();
-        private boolean alwaysShowErrorOnView = false;
-        private int validationType = DefaultType;
+    public static abstract class AbstractValidator{
+        protected Context mContext;
+        protected View mView;
+        protected View mErrorView;
+        protected Object packet;
+        protected List<ValidatorRuleInterface> mRuleList;
+        protected List<OnValidationCallback> onValidationCallbackList = new ArrayList<>();
+        protected boolean alwaysShowErrorOnView = false;
+        protected int validationType = DefaultType;
 
-        private void setup(Context context, View mView, Object packet){
+        public AbstractValidator(Context context, View mView, View mErrorView, Object packet){
+            setup(context,mView,mErrorView,packet);
+        }
+
+        public AbstractValidator(Context context, View mView, View mErrorView){
+            this(context,mView, mErrorView, null);
+        }
+
+        public AbstractValidator(Context context, View mView){
+            this(context,mView, null);
+        }
+
+        public AbstractValidator(Context context, int viewResourceId, int errorViewResoureId, Object packet){
+            View editText = ((Activity)context).findViewById(viewResourceId);
+            View errorText = ((Activity)context).findViewById(errorViewResoureId);
+            setup(context,editText,errorText,packet);
+        }
+
+        public AbstractValidator(Context context, int viewResourceId, int errorViewResoureId){
+            this(context, viewResourceId, errorViewResoureId, null);
+        }
+
+        public AbstractValidator(Context context, int viewResourceId){
+            this(context,viewResourceId,viewResourceId);
+        }
+
+        protected void setup(Context context, View mView, View mErrorView, Object packet){
             this.mContext = context.getApplicationContext();
             this.mView = mView;
+            this.mErrorView = mErrorView;
             this.packet = packet;
             mRuleList = new ArrayList<>();
         }
 
-        public AbstractValidatorRule getRule(int position){
+        public ValidatorRuleInterface getRule(int position){
             return mRuleList.get(position);
         }
 
@@ -217,35 +310,17 @@ public class FormValidationUtil {
             this.packet = packet;
         }
 
-        public Validator(Context context, View mView, Object packet){
-            setup(context,mView,packet);
-        }
-
-        public Validator(Context context, int viewResourceId, Object packet){
-            View editText = ((Activity)context).findViewById(viewResourceId);
-            setup(context,editText,packet);
-        }
-
-        public Validator(Context context, View mView){
-            setup(context,mView,null);
-        }
-
-        public Validator(Context context, int viewResourceId){
-            View editText = ((Activity)context).findViewById(viewResourceId);
-            setup(context,editText,null);
-        }
-
-        public Validator addRule(AbstractValidatorRule validatorRule){
+        public AbstractValidator addRule(ValidatorRuleInterface validatorRule){
             mRuleList.add(validatorRule);
             return this;
         }
 
-        public Validator addOnValidationCallback(OnValidationCallback onValidationCallback) {
+        public AbstractValidator addOnValidationCallback(OnValidationCallback onValidationCallback) {
             this.onValidationCallbackList.add(onValidationCallback);
             return this;
         }
 
-        public Validator setAlwaysShowErrorOnView(boolean alwaysShowErrorOnView) {
+        public AbstractValidator setAlwaysShowErrorOnView(boolean alwaysShowErrorOnView) {
             this.alwaysShowErrorOnView = alwaysShowErrorOnView;
             return this;
         }
@@ -254,7 +329,7 @@ public class FormValidationUtil {
             return validationType;
         }
 
-        public Validator setValidationType(int validationType) {
+        public AbstractValidator setValidationType(int validationType) {
             this.validationType = validationType;
             return this;
         }
@@ -262,41 +337,38 @@ public class FormValidationUtil {
         public void validate(){
             int successCount = 0;
             for (int y=0; y<mRuleList.size(); y++){
-                AbstractValidatorRule rule = mRuleList.get(y);
-                if(mView instanceof TextView) {
-                    TextView mTextView = (TextView) mView;
-                    boolean isValid = false;
-                    try {
-                        isValid = rule.isValid(mView, mTextView.getText().toString(), packet);
-                    } catch (ValidatorException e) {
-                        e.printStackTrace();
-                    }
-                    if (!isValid) {
-                        if(onValidationCallbackList.size() > 0){
-                            if(alwaysShowErrorOnView){
-                                mTextView.setError(rule.getMessage());
-                            }
-                            for (OnValidationCallback callback : onValidationCallbackList){
-                                if(callback.onFailed(mView, rule, rule.getMessage()))break;
-                                //TODO: need riset in break statement
-                            }
+                ValidatorRuleInterface rule = mRuleList.get(y);
+                boolean isValid = false;
+                try {
+                    isValid = rule.isValid(mView, packet);
+                } catch (ValidatorException e) {
+                    e.printStackTrace();
+                }
+                if (!isValid) {
+                    if(onValidationCallbackList.size() > 0){
+                        if(alwaysShowErrorOnView){
+                           showError(rule.getMessage());
+                        }
+                        for (OnValidationCallback callback : onValidationCallbackList){
+                            if(callback.onFailed(mView, rule, rule.getMessage()))break;
+                            //TODO: need riset in break statement
+                        }
 
-                        } else {
-                            mTextView.setError(rule.getMessage());
+                    } else {
+                        showError(rule.getMessage());
+                    }
+                } else {
+                    if(onValidationCallbackList.size() > 0){
+                        successCount++;
+                        if(alwaysShowErrorOnView){
+                            showError(null);
+                        }
+                        for (OnValidationCallback callback : onValidationCallbackList){
+                            if(callback.onSuccess(mView, rule))break;
+                            //TODO: need riset in break statement
                         }
                     } else {
-                        if(onValidationCallbackList.size() > 0){
-                            successCount++;
-                            if(alwaysShowErrorOnView){
-                                mTextView.setError(null);
-                            }
-                            for (OnValidationCallback callback : onValidationCallbackList){
-                                if(callback.onSuccess(mView, rule))break;
-                                //TODO: need riset in break statement
-                            }
-                        } else {
-                            mTextView.setError(null);
-                        }
+                        showError(null);
                     }
                 }
             }
@@ -306,37 +378,87 @@ public class FormValidationUtil {
                 }
             }
         }
+
+        public abstract void showError(String message);
     }
 
     public interface OnValidationCallback{
-        boolean onSuccess(View view, AbstractValidatorRule validatorRule);
-        boolean onFailed(View view, AbstractValidatorRule validatorRule, String message);
+        boolean onSuccess(View view, ValidatorRuleInterface validatorRule);
+        boolean onFailed(View view, ValidatorRuleInterface validatorRule, String message);
         void onComplete(View view, boolean allRuleValid);
     }
 
-    public static abstract class AbstractValidatorRule{
+
+    public interface ValidatorRuleInterface {
+        boolean isValid(View view, Object packet) throws ValidatorException;
+        String getMessage();
+        void setErrorMessage(String mErrorMessage);
+    }
+
+    public static abstract class EditTextValidatorRule implements ValidatorRuleInterface{
         private String mErrorMessage;
-        public AbstractValidatorRule(){
+
+        public abstract boolean isValid(TextView textView, String value, Object packet) throws ValidatorException;
+
+        public EditTextValidatorRule(){
         }
-        public AbstractValidatorRule(String errorMessage){
+        public EditTextValidatorRule(String errorMessage){
             this.mErrorMessage = errorMessage;
         }
-        public abstract boolean isValid(View view, String value, Object packet) throws ValidatorException;
 
+        @Override
+        public boolean isValid(View view, Object packet) throws ValidatorException{
+            TextView textView = (TextView)view;
+            return isValid(textView,textView.getText().toString(), packet);
+        }
 
-        public String getMessage(){
+        @Override
+        public String getMessage() {
             return mErrorMessage;
         }
 
+        @Override
         public void setErrorMessage(String mErrorMessage) {
             this.mErrorMessage = mErrorMessage;
         }
     }
 
+    public static abstract class CheckBoxValidatorRule implements ValidatorRuleInterface{
+        private String mErrorMessage;
 
+        public abstract boolean isValid(CheckBox checkBox, boolean isChecked, Object packet) throws ValidatorException;
+
+        public CheckBoxValidatorRule(){
+        }
+
+        public CheckBoxValidatorRule(String errorMessage){
+            this.mErrorMessage = errorMessage;
+        }
+
+        @Override
+        public boolean isValid(View view, Object packet) throws ValidatorException{
+            CheckBox checkBox = (CheckBox)view;
+            return isValid(checkBox, checkBox.isChecked(), packet);
+        }
+
+        @Override
+        public String getMessage() {
+            return mErrorMessage;
+        }
+
+        @Override
+        public void setErrorMessage(String mErrorMessage) {
+            this.mErrorMessage = mErrorMessage;
+        }
+    }
 
     //Validation Rules definition
-    public static class NotEmptyValidatorRule extends AbstractValidatorRule{
+    public static class NotEmptyValidatorRule extends EditTextValidatorRule{
+        @Override
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
+            return !TextUtils.isEmpty(value);
+        }
+
         public NotEmptyValidatorRule() {
             setErrorMessage(MESSAGE_PLEASE_FILL_THIS);
         }
@@ -344,25 +466,13 @@ public class FormValidationUtil {
         public NotEmptyValidatorRule(String errorMessage) {
             setErrorMessage(errorMessage);
         }
-
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            return !TextUtils.isEmpty(value);
-        }
     }
 
-    public static class EmailValidatorRule extends AbstractValidatorRule{
+    public static class EmailValidatorRule extends EditTextValidatorRule{
         private String mDomainName = "";
-        public EmailValidatorRule() {
-            setErrorMessage(MESSAGE_EMAIL_IS_INVALID);
-        }
-
-        public EmailValidatorRule(String errorMessage) {
-            super(errorMessage);
-        }
 
         @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
             if (!TextUtils.isEmpty(value)) {
                 if (TextUtils.isEmpty(mDomainName)) {
                     Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
@@ -378,28 +488,37 @@ public class FormValidationUtil {
             }
         }
 
+        public EmailValidatorRule() {
+            setErrorMessage(MESSAGE_EMAIL_IS_INVALID);
+        }
+
+        public EmailValidatorRule(String errorMessage) {
+            super(errorMessage);
+        }
+
         public void setDomainName(String domainName) {
             mDomainName = domainName;
         }
     }
 
 
-    public static class RegExpValidatorRule extends AbstractValidatorRule{
+    public static class RegExpValidatorRule extends EditTextValidatorRule{
         private Pattern mPattern;
+
+        @Override
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
+            if (mPattern != null) {
+                return mPattern.matcher(value).matches();
+            }
+            throw new ValidatorException(MESSAGE_NEED_SET_REGEX_PATTERN);
+        }
+
         public RegExpValidatorRule() {
             setErrorMessage(MESSAGE_PLEASE_INSERT_WITH_VALID_FORMAT);
         }
 
         public RegExpValidatorRule(String errorMessage) {
             super(errorMessage);
-        }
-
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            if (mPattern != null) {
-                return mPattern.matcher(value).matches();
-            }
-            throw new ValidatorException(MESSAGE_NEED_SET_REGEX_PATTERN);
         }
 
         public void setPattern(String pattern) {
@@ -412,7 +531,13 @@ public class FormValidationUtil {
     }
 
 
-    public static class AlphaNumericValidatorRule extends AbstractValidatorRule{
+    public static class AlphaNumericValidatorRule extends EditTextValidatorRule{
+        @Override
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
+            if(TextUtils.isEmpty(value))return true;
+            return TextUtils.isDigitsOnly(value);
+        }
+
         public AlphaNumericValidatorRule() {
             setErrorMessage(MESSAGE_PLEASE_FILL_ALPHA_NUMERIC_ONLY);
         }
@@ -420,25 +545,11 @@ public class FormValidationUtil {
         public AlphaNumericValidatorRule(String errorMessage) {
             super(errorMessage);
         }
-
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            if(TextUtils.isEmpty(value))return true;
-            return TextUtils.isDigitsOnly(value);
-        }
     }
 
-    public static class NumericValidatorRule extends AbstractValidatorRule{
-        public NumericValidatorRule() {
-            setErrorMessage(MESSAGE_PLEASE_FILL_NUMERIC_ONLY);
-        }
-
-        public NumericValidatorRule(String errorMessage) {
-            super(errorMessage);
-        }
-
+    public static class NumericValidatorRule extends EditTextValidatorRule{
         @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
             if(TextUtils.isEmpty(value))return true;
             if (value == null || value.length() == 0)
                 return false;
@@ -448,29 +559,37 @@ public class FormValidationUtil {
             }
             return true;
         }
+
+        public NumericValidatorRule() {
+            setErrorMessage(MESSAGE_PLEASE_FILL_NUMERIC_ONLY);
+        }
+
+        public NumericValidatorRule(String errorMessage) {
+            super(errorMessage);
+        }
     }
 
-    public static class SameValueValidatorRule extends AbstractValidatorRule{
-        private String comparedFieldName;
+    public static class SameValueValidatorRule extends EditTextValidatorRule{
+
+        @Override
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
+            View comparedView = (View)packet;
+            String comparedValue = ((TextView)comparedView).getText().toString();
+            return value.equals(comparedValue);
+        }
+
         public SameValueValidatorRule(String comparedFieldName) {
-            this.comparedFieldName = comparedFieldName;
             setErrorMessage(String.format(MESSAGE_VALUE_IS_DIFFERENT,comparedFieldName));
         }
 
         public SameValueValidatorRule(String errorMessage, String comparedFieldName) {
             super(errorMessage);
-            this.comparedFieldName = comparedFieldName;
         }
 
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            View comparedView = (View)packet;
-            String comparedValue = ((TextView)comparedView).getText().toString();
-            return value.equals(comparedValue);
-        }
+
     }
 
-    public static class CountValidatorRule extends AbstractValidatorRule{
+    public static class CountValidatorRule extends EditTextValidatorRule{
         private int count;
         public CountValidatorRule(int count) {
             setErrorMessage(String.format(MESSAGE_DATA_MUST_BE_COUNT_DIGITS,count,(count>1?"digits":"digit")));
@@ -483,12 +602,18 @@ public class FormValidationUtil {
         }
 
         @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
             return value.length() == count;
         }
     }
 
-    public static class PhoneValidatorRule extends AbstractValidatorRule{
+    public static class PhoneValidatorRule extends EditTextValidatorRule{
+        @Override
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
+            if(TextUtils.isEmpty(value))return true;
+            return Patterns.PHONE.matcher(value).matches();
+        }
+
         public PhoneValidatorRule() {
             setErrorMessage(MESSAGE_PHONE_FORMAT_IS_INVALID);
         }
@@ -496,50 +621,48 @@ public class FormValidationUtil {
         public PhoneValidatorRule(String errorMessage) {
             super(errorMessage);
         }
-
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            if(TextUtils.isEmpty(value))return true;
-            return Patterns.PHONE.matcher(value).matches();
-        }
     }
 
-    public static class MustCheckedValidatorRule extends AbstractValidatorRule{
+    public static class MustCheckedValidatorRule extends CheckBoxValidatorRule{
         public MustCheckedValidatorRule(Context context) {
             setErrorMessage(MESSAGE_YOU_MUST_CHECK_THIS);
+        }
+
+        @Override
+        public boolean isValid(CheckBox checkBox, boolean isChecked, Object packet) throws ValidatorException {
+            if(isChecked){
+                return true;
+            }else{
+                //invalid state :
+                //1. remove error message after checked
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            buttonView.setError(null);
+                            buttonView.setFocusableInTouchMode(false);
+                        }
+                    }
+                });
+                checkBox.setFocusableInTouchMode(true);
+
+            }
+            return false;
         }
 
         public MustCheckedValidatorRule(String errorMessage) {
             super(errorMessage);
         }
-
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            if(view instanceof CheckBox){
-                if(((CheckBox)view).isChecked()){
-                    return true;
-                }else{
-                    //invalid state :
-                    //1. remove error message after checked
-                    ((CheckBox)view).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if(isChecked){
-                                buttonView.setError(null);
-                                buttonView.setFocusableInTouchMode(false);
-                            }
-                        }
-                    });
-                    ((CheckBox)view).setFocusableInTouchMode(true);
-
-                }
-            }
-            return false;
-        }
     }
 
 
-    public static class URLValidatorRule extends AbstractValidatorRule{
+    public static class URLValidatorRule extends EditTextValidatorRule{
+        @Override
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
+            if(TextUtils.isEmpty(value))return true;
+            return Patterns.WEB_URL.matcher(value).matches();
+        }
+
         public URLValidatorRule() {
             setErrorMessage(MESSAGE_URL_FORMAT_IS_INVALID);
         }
@@ -547,15 +670,9 @@ public class FormValidationUtil {
         public URLValidatorRule(String errorMessage) {
             super(errorMessage);
         }
-
-        @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
-            if(TextUtils.isEmpty(value))return true;
-            return Patterns.WEB_URL.matcher(value).matches();
-        }
     }
 
-    public static class DateValidatorRule extends AbstractValidatorRule{
+    public static class DateValidatorRule extends EditTextValidatorRule{
         private String dateFormat;
         private TimeZone timeZone;
         private Locale locale;
@@ -574,7 +691,7 @@ public class FormValidationUtil {
         }
 
         @Override
-        public boolean isValid(View view, String value, Object packet) throws ValidatorException {
+        public boolean isValid(TextView textView, String value, Object packet) throws ValidatorException {
             try {
                 DateFormat df = new SimpleDateFormat(dateFormat, locale);
                 df.setLenient(false);
@@ -584,7 +701,7 @@ public class FormValidationUtil {
                 df.parse(value);
                 return true;
             } catch (ParseException e) {
-                return false;
+                throw new ValidatorException(e.getMessage());
             }
         }
     }
@@ -610,34 +727,34 @@ public class FormValidationUtil {
     }
 
 
+
     //helper method
-    public Validator addNotEmptyValidatorForView(View view){
+    public AbstractValidator addNotEmptyValidatorForView(View view){
        return addNotEmptyValidatorForView(view, null);
     }
 
-    public Validator addNotEmptyValidatorForView(View view, String errorMessage){
+    public AbstractValidator addNotEmptyValidatorForView(View view, String errorMessage){
         return addNotEmptyValidatorForView(defaultValidationType, view, errorMessage);
     }
 
-    public Validator addNotEmptyValidatorForView(int validationType, View view){
+    public AbstractValidator addNotEmptyValidatorForView(int validationType, View view){
         return addNotEmptyValidatorForView(validationType, view, null);
     }
 
-    public Validator addNotEmptyValidatorForView(int validationType, View view, String errorMessage){
-        Validator newValidator = new FormValidationUtil.Validator(context, view);
+    public AbstractValidator addNotEmptyValidatorForView(int validationType, View view, String errorMessage){
+        AbstractValidator newValidator = new FormValidationUtil.EditTextValidator(context, view);
         newValidator.addRule(TextUtils.isEmpty(errorMessage)?new NotEmptyValidatorRule():new NotEmptyValidatorRule(errorMessage));
         newValidator.setValidationType(validationType);
         addValidator(newValidator);
         return newValidator;
     }
 
-
-    public Validator addNewValidatorForView(View view){
+    public AbstractValidator addNewValidatorForView(View view){
         return addNewValidatorForView(defaultValidationType, view);
     }
 
-    public Validator addNewValidatorForView(int validationType, View view){
-        Validator newValidator = new FormValidationUtil.Validator(context, view);
+    public AbstractValidator addNewValidatorForView(int validationType, View view){
+        AbstractValidator newValidator = new FormValidationUtil.EditTextValidator(context, view);
         newValidator.setValidationType(validationType);
         addValidator(newValidator);
         return newValidator;

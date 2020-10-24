@@ -42,11 +42,13 @@ public class PrefsData {
       String loginType = getLoginType();
       String pushToken = getPushyToken();
       boolean pushTokenSent = getPushyTokenSent();
+      String apiKey = getApiKey();
       clearAllData();
       setUserID(userId);
       setLoginType(loginType);
       setPushyToken(pushToken);
       setPushyTokenSent(pushTokenSent);
+      setApiKey(apiKey);
    }
 
    public static String getPhoto(){

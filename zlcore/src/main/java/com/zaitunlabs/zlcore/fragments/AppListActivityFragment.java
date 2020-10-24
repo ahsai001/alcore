@@ -48,6 +48,7 @@ import java.util.List;
  */
 public class AppListActivityFragment extends BaseFragment {
     public static final String PARAM_IS_MEID = InfoFragment.PARAM_IS_MEID;
+    private static final String PARAM_AUTH_TYPE = "param_auth_type";
     private AppListAdapter adapter;
     private List<AppListDataModel> appListDataModels = new ArrayList<>();
     private CustomRecylerView recyclerView;
@@ -61,9 +62,10 @@ public class AppListActivityFragment extends BaseFragment {
     public AppListActivityFragment() {
     }
 
-    public void setArg(boolean isMeid){
+    public void setArg(boolean isMeid, HttpClientUtil.AuthType authType){
         Bundle b = new Bundle();
         b.putBoolean(PARAM_IS_MEID, isMeid);
+        b.putSerializable(PARAM_AUTH_TYPE, authType);
         setArguments(b);
     }
 
@@ -188,9 +190,10 @@ public class AppListActivityFragment extends BaseFragment {
 
     private void fetchAppListData(final Context context, final int loadingPage, final AppListModel appListModel){
         final boolean isMeid = CommonUtil.getBooleanFragmentArgument(getArguments(), PARAM_IS_MEID, false);
+        HttpClientUtil.AuthType authType = (HttpClientUtil.AuthType) CommonUtil.getSerializableFragmentArgument(getArguments(), PARAM_AUTH_TYPE,null);
 
         AndroidNetworking.get(APIConstant.API_OTHER_APPS +"/"+countPerPage+"/"+loadingPage)
-                .setOkHttpClient(HttpClientUtil.getHTTPClient(context, APIConstant.API_VERSION, isMeid))
+                .setOkHttpClient(HttpClientUtil.getHTTPClient(context, APIConstant.API_VERSION, authType, isMeid))
                 .setPriority(Priority.HIGH)
                 .setTag("othersapp")
                 .build()

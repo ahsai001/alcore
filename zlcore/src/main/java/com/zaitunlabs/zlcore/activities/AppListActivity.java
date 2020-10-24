@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.ahsailabs.alcore.core.BaseActivity;
 import com.ahsailabs.alcore.fragments.InfoFragment;
 import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.HttpClientUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -43,7 +44,7 @@ public class AppListActivity extends BaseActivity {
         showFragment(R.id.fragment, AppListActivityFragment.class, new PostFragmentInstantiation<AppListActivityFragment>() {
             @Override
             public void postInstantiation(AppListActivityFragment fragment) {
-                fragment.setArg(isMeid);
+                fragment.setArg(isMeid, HttpClientUtil.AuthType.APIKEY);
             }
         }, savedInstanceState, "AppListActivity");
     }

@@ -61,6 +61,8 @@ public abstract class BaseSplashActivity extends BaseActivity {
 
     protected abstract boolean isMeidIncluded();
 
+    protected abstract HttpClientUtil.AuthType getAuthType();
+
     protected abstract int getMinimumSplashTimeInMS();
 
 
@@ -167,7 +169,7 @@ public abstract class BaseSplashActivity extends BaseActivity {
 
         if(!TextUtils.isEmpty(checkVersionUrl)) {
             AndroidNetworking.post(checkVersionUrl)
-                    .setOkHttpClient(HttpClientUtil.getHTTPClient(BaseSplashActivity.this, APIConstant.API_VERSION, isMeidIncluded()))
+                    .setOkHttpClient(HttpClientUtil.getHTTPClient(BaseSplashActivity.this, APIConstant.API_VERSION, getAuthType(), isMeidIncluded()))
                     .addBodyParameter("appid", APIConstant.API_APPID)
                     .setPriority(Priority.HIGH)
                     .setTag("checkversion")

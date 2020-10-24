@@ -53,6 +53,7 @@ import java.util.List;
 
 public class StoreActivityFragment extends BaseFragment {
     public static final String PARAM_IS_MEID = InfoFragment.PARAM_IS_MEID;
+    private static final String PARAM_AUTH_TYPE = "param_auth_type";
     private StoreAdapter adapter;
     private List<StoreDataModel> storeDataModels = new ArrayList<>();
     private CustomRecylerView recyclerView;
@@ -67,9 +68,10 @@ public class StoreActivityFragment extends BaseFragment {
     public StoreActivityFragment() {
     }
 
-    public void setArg(boolean isMeid){
+    public void setArg(boolean isMeid, HttpClientUtil.AuthType authType){
         Bundle b = new Bundle();
         b.putBoolean(PARAM_IS_MEID, isMeid);
+        b.putSerializable(PARAM_AUTH_TYPE, authType);
         setArguments(b);
     }
 
@@ -191,9 +193,10 @@ public class StoreActivityFragment extends BaseFragment {
 
     private void fetchStoreData(final Context context, final int loadingPage, final StoreModel storeModel){
         boolean isMeid = CommonUtil.getBooleanFragmentArgument(getArguments(), PARAM_IS_MEID, false);
+        HttpClientUtil.AuthType authType = (HttpClientUtil.AuthType) CommonUtil.getSerializableFragmentArgument(getArguments(), PARAM_AUTH_TYPE,null);
 
         ANRequest.PostRequestBuilder builder = AndroidNetworking.post(APIConstant.API_STORE +"/"+countPerPage+"/"+loadingPage)
-                .setOkHttpClient(HttpClientUtil.getHTTPClient(context, APIConstant.API_VERSION, isMeid))
+                .setOkHttpClient(HttpClientUtil.getHTTPClient(context, APIConstant.API_VERSION, authType, isMeid))
                 .setPriority(Priority.HIGH)
                 .setTag("store");
         if(!TextUtils.isEmpty(searchTerm)){

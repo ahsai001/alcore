@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.ahsailabs.alcore.core.BaseActivity;
 import com.ahsailabs.alcore.fragments.InfoFragment;
 import com.ahsailabs.alutils.CommonUtil;
+import com.ahsailabs.alutils.HttpClientUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -43,7 +44,7 @@ public class StoreActivity extends BaseActivity {
         showFragment(R.id.fragment, StoreActivityFragment.class, new PostFragmentInstantiation<StoreActivityFragment>() {
             @Override
             public void postInstantiation(StoreActivityFragment fragment) {
-                fragment.setArg(isMeid);
+                fragment.setArg(isMeid, HttpClientUtil.AuthType.APIKEY);
             }
         }, savedInstanceState, "store");
     }

@@ -286,24 +286,27 @@ public class HttpClientUtil {
         }
     }
 
-
-    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid){
-        return getHTTPClient(context,apiVersion,isMeid, false);
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion){
+        return getHTTPClient(context,apiVersion, AuthType.BEARER);
     }
 
-    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload){
-        return getHTTPClient(context,apiVersion,isMeid, isUpload, null);
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, AuthType authType){
+        return getHTTPClient(context,apiVersion,authType, false);
     }
 
-    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload, BuilderConfig builderConfig){
-        return getHTTPClient(context,apiVersion, isMeid, isUpload, builderConfig, null, null);
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, AuthType authType, boolean isMeid){
+        return getHTTPClient(context,apiVersion,authType, isMeid, false);
     }
 
-    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload, BuilderConfig builderConfig, @Nullable Map<String, String> headerMap){
-        return getHTTPClient(context,apiVersion, isMeid, isUpload, builderConfig, headerMap, null);
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, AuthType authType, boolean isMeid, boolean isUpload){
+        return getHTTPClient(context,apiVersion, authType, isMeid, isUpload, null);
     }
 
-    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, boolean isMeid, boolean isUpload, BuilderConfig builderConfig, @Nullable Map<String, String> headerMap, AuthType authType){
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, AuthType authType, boolean isMeid, boolean isUpload, @Nullable Map<String, String> headerMap){
+        return getHTTPClient(context,apiVersion, authType, isMeid, isUpload, headerMap, null);
+    }
+
+    public static OkHttpClient getHTTPClient(final Context context, String apiVersion, AuthType authType, boolean isMeid, boolean isUpload, @Nullable Map<String, String> headerMap, BuilderConfig builderConfig){
         List<String> headerList = getHeaderList(isMeid, isMeid, isMeid, isMeid, authType);
         Map<String, String> resultMap = getHeaderMap(context, headerList);
         if(headerMap != null){

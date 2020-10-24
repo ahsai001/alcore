@@ -10,8 +10,8 @@ android {
         applicationId "com.ahsailabs.alcoresample"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 78
-        versionName "1.13.100.270"
+        versionCode 79
+        versionName "1.13.101.280"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

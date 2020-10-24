@@ -89,11 +89,11 @@ public abstract class BaseFormActivityFragment extends BaseFragment {
         formBuilderUtil.render().show();
 
         if(!handleCustomLogic(getActivity(), formBuilderUtil, savedInstanceState)){
-            recognizeButtonAndEnableCustomAction(savedInstanceState);
+            activateFormAndEnableCustomAction(savedInstanceState);
         }
     }
 
-    protected void recognizeButtonAndEnableCustomAction(@Nullable final Bundle savedInstanceState){
+    protected boolean activateFormAndEnableCustomAction(@Nullable final Bundle savedInstanceState){
         if(formBuilderUtil.getPageType().equalsIgnoreCase(FormBuilderUtil.PAGE_TYPE_SCROLL) ||
                 formBuilderUtil.getPageType().equalsIgnoreCase(FormBuilderUtil.PAGE_TYPE_LINEAR)) {
             Button button = (Button) formBuilderUtil.getLastViewForWidget("button");
@@ -146,6 +146,8 @@ public abstract class BaseFormActivityFragment extends BaseFragment {
                 }
             }
 
+            return button != null;
+
         } else if(formBuilderUtil.getPageType().equalsIgnoreCase(FormBuilderUtil.PAGE_TYPE_STEPPER)) {
             formBuilderUtil.setOnHandleCustomActionAtStepper(new FormBuilderUtil.OnHandleCustomActionAtStepper() {
                 @Override
@@ -156,7 +158,11 @@ public abstract class BaseFormActivityFragment extends BaseFragment {
                     }
                 }
             });
+
+            return true;
         }
+
+        return false;
     }
 
     @Override

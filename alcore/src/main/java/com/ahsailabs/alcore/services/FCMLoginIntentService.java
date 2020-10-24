@@ -26,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
 public class FCMLoginIntentService extends JobIntentService {
-    public static final String PARAM_IS_MEID = InfoFragment.PARAM_IS_MEID;
     private final String TAG = FCMLoginIntentService.class.getSimpleName();
     public static final int JOB_ID = 11000013;
 
@@ -34,6 +33,8 @@ public class FCMLoginIntentService extends JobIntentService {
     private static boolean isProcessing = false;
 
     public static final String PARAM_APPID = "param_appid";
+    private static final String PARAM_AUTH_TYPE = "param_auth_type";
+    public static final String PARAM_IS_MEID = InfoFragment.PARAM_IS_MEID;
 
     private boolean isMeid;
 
@@ -42,15 +43,16 @@ public class FCMLoginIntentService extends JobIntentService {
         onHandleIntent(intent);
     }
 
-    public static void startSending(Context context, String appid, boolean isMeid) {
+    public static void startSending(Context context, String appid, boolean isMeid, HttpClientUtil.AuthType authType) {
         Intent intent = new Intent(context, FCMLoginIntentService.class);
         intent.setAction(ACTION_SEND_TOKEN);
         intent.putExtra(PARAM_APPID,appid);
         intent.putExtra(PARAM_IS_MEID, isMeid);
+        intent.putExtra(PARAM_AUTH_TYPE, authType);
         JobIntentService.enqueueWork(context,FCMLoginIntentService.class,JOB_ID,intent);
     }
 
-    public static void startSending(final Context context, final String appid, final boolean isMeid, long delayInMillis) {
+    public static void startSending(final Context context, final String appid, final boolean isMeid, final HttpClientUtil.AuthType authType, long delayInMillis) {
         new android.os.Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -58,6 +60,7 @@ public class FCMLoginIntentService extends JobIntentService {
                 intent.setAction(ACTION_SEND_TOKEN);
                 intent.putExtra(PARAM_APPID,appid);
                 intent.putExtra(PARAM_IS_MEID, isMeid);
+                intent.putExtra(PARAM_AUTH_TYPE, authType);
                 JobIntentService.enqueueWork(context,FCMLoginIntentService.class,JOB_ID,intent);
             }
         }, delayInMillis);
@@ -80,15 +83,16 @@ public class FCMLoginIntentService extends JobIntentService {
 
 
         isMeid = CommonUtil.getBooleanIntent(intent, PARAM_IS_MEID, false);
+        final HttpClientUtil.AuthType authType = (HttpClientUtil.AuthType) CommonUtil.getSerializableIntent(intent, PARAM_AUTH_TYPE,null);
 
         if(TextUtils.isEmpty(PrefsData.getPushyToken())){
             //it means pushy.Me not yet generate token, please waiting and retry
             isProcessing = false;
-            FCMLoginIntentService.startSending(this, appid, isMeid, 2*1000);
+            FCMLoginIntentService.startSending(this, appid, isMeid, authType, 2*1000);
         }else {
             if (!PrefsData.getPushyTokenLoginSent() && (PrefsData.isAccountLoggedIn())) {
                 AndroidNetworking.post(APIConstant.API_SEND_FCM_LOGIN)
-                        .setOkHttpClient(HttpClientUtil.getHTTPClient(this, APIConstant.API_VERSION, isMeid))
+                        .setOkHttpClient(HttpClientUtil.getHTTPClient(this, APIConstant.API_VERSION, authType, isMeid))
                         .addUrlEncodeFormBodyParameter("fcmid",PrefsData.getPushyToken())
                         .addUrlEncodeFormBodyParameter("appid",appid)
                         .setPriority(Priority.HIGH)
@@ -107,7 +111,7 @@ public class FCMLoginIntentService extends JobIntentService {
                                 if(responseModel.getStatus() == APIResponse.GENERIC_RESPONSE.OK) {
                                     PrefsData.setPushyTokenLoginSent(true);
                                 } else if(responseModel.getStatus() == APIResponse.GENERIC_RESPONSE.FAILED) {
-                                    FCMLoginIntentService.startSending(FCMLoginIntentService.this, appid, isMeid, 2 * 1000);
+                                    FCMLoginIntentService.startSending(FCMLoginIntentService.this, appid, isMeid, authType, 2 * 1000);
                                 }
                             }
 

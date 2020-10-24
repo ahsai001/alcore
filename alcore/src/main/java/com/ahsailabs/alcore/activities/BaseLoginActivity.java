@@ -411,7 +411,7 @@ public abstract class BaseLoginActivity extends BaseActivity implements LoginCal
             } else {
                 //do hit api
                 AndroidNetworking.post(getLoginUrl())
-                        .setOkHttpClient(HttpClientUtil.getHTTPClient(BaseLoginActivity.this, getAPIVersion(), isMeidIncluded(), false, getHttpBuilderConfig(), getCustomHeaderMap(), getAuthType()))
+                        .setOkHttpClient(HttpClientUtil.getHTTPClient(BaseLoginActivity.this, getAPIVersion(), getAuthType(), isMeidIncluded(), false, getCustomHeaderMap(), getHttpBuilderConfig()))
                         .addUrlEncodeFormBodyParameter(TextUtils.isEmpty(getUserIdFieldName())?"username":getUserIdFieldName(), username)
                         .addUrlEncodeFormBodyParameter(TextUtils.isEmpty(getPasswordFieldName())?"password":getPasswordFieldName(), cookedPassword)
                         .addUrlEncodeFormBodyParameter(TextUtils.isEmpty(getLoginTypeFieldName())?"loginType":getLoginTypeFieldName(), appType)
