@@ -415,6 +415,7 @@ public class FormBuilderUtil implements VerticalStepperForm{
             formWidgetModel.setId(id);
             formWidgetModel.setProperties(new ArrayList<FormPropertiesModel>());
             formWidgetModel.setValidation(new ArrayList<FormValidationRuleModel>());
+            formWidgetModel.setData(new ArrayList<FormArgumentModel>());
         }
 
         private void setFormBuilderUtil(FormBuilderUtil formBuilderUtil){
@@ -437,7 +438,12 @@ public class FormBuilderUtil implements VerticalStepperForm{
             return this;
         }
 
-        public WidgetBuilder setProperty(String propertyKey, ArgumentValueList propertyList){
+        public WidgetBuilder setFieldName(String fieldName){
+            formWidgetModel.setFieldName(fieldName);
+            return this;
+        }
+
+        public WidgetBuilder addProperty(String propertyKey, ArgumentValueList propertyList){
             FormPropertiesModel formPropertiesModel = new FormPropertiesModel();
             formPropertiesModel.setPropKey(propertyKey);
             ArrayList<FormArgumentModel> propertiesArgModelList = new ArrayList<>();
@@ -452,7 +458,7 @@ public class FormBuilderUtil implements VerticalStepperForm{
             return this;
         }
 
-        public WidgetBuilder setValidationRule(String ruleName, String errorMessage, ArgumentValueList argumentValueList){
+        public WidgetBuilder addValidationRule(String ruleName, String errorMessage, ArgumentValueList argumentValueList){
             FormValidationRuleModel formValidationRuleModel = new FormValidationRuleModel();
             formValidationRuleModel.setRuleName(ruleName);
             formValidationRuleModel.setErrorMessage(errorMessage);
@@ -465,6 +471,14 @@ public class FormBuilderUtil implements VerticalStepperForm{
             }
             formValidationRuleModel.setRuleArgs(argModelList);
             formWidgetModel.getValidation().add(formValidationRuleModel);
+            return this;
+        }
+
+        public WidgetBuilder addData(String argType, Object argValue){
+            FormArgumentModel argumentModel = new FormArgumentModel();
+            argumentModel.setArgType(argType);
+            argumentModel.setArgValue(argValue);
+            formWidgetModel.getData().add(argumentModel);
             return this;
         }
     }
