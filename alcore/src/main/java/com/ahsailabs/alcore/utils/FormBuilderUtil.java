@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -49,6 +50,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -463,11 +465,13 @@ public class FormBuilderUtil implements VerticalStepperForm{
             formValidationRuleModel.setRuleName(ruleName);
             formValidationRuleModel.setErrorMessage(errorMessage);
             ArrayList<FormArgumentModel> argModelList = new ArrayList<>();
-            for(Map.Entry<String, Object> arg: argumentValueList.getArguments().entrySet()){
-                FormArgumentModel formArgumentModel = new FormArgumentModel();
-                formArgumentModel.setArgType(arg.getKey());
-                formArgumentModel.setArgValue(arg.getValue());
-                argModelList.add(formArgumentModel);
+            if(argumentValueList != null) {
+                for (Map.Entry<String, Object> arg : argumentValueList.getArguments().entrySet()) {
+                    FormArgumentModel formArgumentModel = new FormArgumentModel();
+                    formArgumentModel.setArgType(arg.getKey());
+                    formArgumentModel.setArgValue(arg.getValue());
+                    argModelList.add(formArgumentModel);
+                }
             }
             formValidationRuleModel.setRuleArgs(argModelList);
             formWidgetModel.getValidation().add(formValidationRuleModel);
@@ -481,6 +485,16 @@ public class FormBuilderUtil implements VerticalStepperForm{
             formWidgetModel.getData().add(argumentModel);
             return this;
         }
+
+        public WidgetBuilder addData(@NonNull ArgumentValueList argumentValueList){
+            for (Map.Entry<String, Object> arg : argumentValueList.getArguments().entrySet()) {
+                FormArgumentModel formArgumentModel = new FormArgumentModel();
+                formArgumentModel.setArgType(arg.getKey());
+                formArgumentModel.setArgValue(arg.getValue());
+                formWidgetModel.getData().add(formArgumentModel);
+            }
+            return this;
+        }
     }
 
 
@@ -492,9 +506,9 @@ public class FormBuilderUtil implements VerticalStepperForm{
 
 
     public static class ArgumentValueList {
-        HashMap<String, Object> arguments;
+        LinkedHashMap<String, Object> arguments;
         public ArgumentValueList(){
-            arguments = new HashMap<>();
+            arguments = new LinkedHashMap<>();
         }
 
         public ArgumentValueList add(String propType, Object propValue){
@@ -502,7 +516,7 @@ public class FormBuilderUtil implements VerticalStepperForm{
             return this;
         }
 
-        public HashMap<String, Object> getArguments(){
+        public LinkedHashMap<String, Object> getArguments(){
             return arguments;
         }
     }
