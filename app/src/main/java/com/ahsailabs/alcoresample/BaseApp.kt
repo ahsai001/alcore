@@ -16,7 +16,6 @@ class BaseApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         Lookup.init(this, true)
 
     }

@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 31
+    //buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.ahsailabs.alcoresample"
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 81
         versionName "1.13.103.286"
         multiDexEnabled true
