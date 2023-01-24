@@ -23,9 +23,11 @@
     <application>
         <activity
             android:name=".modules.version_history.VersionChangeHistoryCanvas"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".modules.about.AboutUs"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- modules sholat dan shaum -->
@@ -36,6 +38,7 @@
         <receiver
             android:name=".modules.shaum_sholat.ManageShaumSholatReminderReceiver"
             android:directBootAware="true"
+            android:exported="true"
             tools:ignore="UnusedAttribute">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -44,24 +47,30 @@
                 <action android:name="android.intent.action.REBOOT"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".modules.shaum_sholat.SholatReminderReceiver" />
-        <receiver android:name=".modules.shaum_sholat.ShaumReminderReceiver" />
+        <receiver android:name=".modules.shaum_sholat.SholatReminderReceiver"
+            android:exported="true"/>
+        <receiver android:name=".modules.shaum_sholat.ShaumReminderReceiver"
+            android:exported="true"/>
 
         <activity
             android:name=".activities.AppListActivity"
             android:label="@string/zlcore_title_activity_app_list"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.StoreActivity"
             android:label="@string/zlcore_title_activity_store"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".modules.version_history.VersionChangeHistoryActivity"
             android:label="@string/zlcore_title_activity_version_change_history"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.BookmarkListActivity"
             android:label="@string/zlcore_title_activity_bookmark_list"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

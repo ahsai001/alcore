@@ -29,6 +29,7 @@
             android:label="@string/zlcore_title_activity_info_popup"
             android:launchMode="singleTask"
             android:noHistory="true"
+            android:exported="false"
             android:theme="@style/AppTheme.InfoPopup" />
         <activity
             android:name="com.ahsailabs.alcore.activities.ReminderPopup"
@@ -36,9 +37,11 @@
             android:label="@string/zlcore_title_activity_reminder_popup"
             android:launchMode="standard"
             android:noHistory="true"
+            android:exported="false"
             android:theme="@style/AppTheme.ReminderPopup" />
         <activity
             android:name="com.ahsailabs.alcore.core.WebViewActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
@@ -51,10 +54,13 @@
             android:exported="false" />
 
         <!-- for application backsound -->
-        <service android:name="com.ahsailabs.alcore.utils.audio.BackSoundService" />
-        <service android:name="com.ahsailabs.alcore.utils.audio.AudioService" />
+        <service android:name="com.ahsailabs.alcore.utils.audio.BackSoundService"
+            android:exported="false"/>
+        <service android:name="com.ahsailabs.alcore.utils.audio.AudioService"
+            android:exported="false"/>
 
-        <receiver android:name="com.ahsailabs.alcore.utils.audio.StopPlayerReceiver" />
+        <receiver android:name="com.ahsailabs.alcore.utils.audio.StopPlayerReceiver"
+            android:exported="false"/>
 
         <service android:name="com.ahsailabs.alcore.services.DataIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE"
@@ -63,6 +69,7 @@
         <activity
             android:name="com.ahsailabs.alcore.activities.MessageListActivity"
             android:label="@string/zlcore_module_message_list_title"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
